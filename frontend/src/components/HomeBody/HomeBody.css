@@ -3,3 +3,22 @@ span {
   font-weight: bold;
   letter-spacing: -0.5px;
 }
+.headerBodyRight__modeShift {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+.headerBodyRight__modeShift label {
+  margin-left: 5px;
+  font-weight: bold;
+  font-size: 15px;
+}
+.headerBodyRight__modeShift div:first-child {
+  margin-right: 20px;
+}
+.homeBodyRight__formLabel {
+  margin-bottom: 4px !important;
+}
+.homeBodyRight__formLabel {
+  margin-left: 0 !important;
+}
