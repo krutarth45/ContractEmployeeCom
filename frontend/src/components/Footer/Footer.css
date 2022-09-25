@@ -1,0 +1,22 @@
+.footerDiv {
+  background: #3b5998;
+  width: 100%;
+  color: #fff;
+}
+.footerDiv h4 {
+  font-weight: bold !important;
+  font-size: 15px;
+}
+.footer__links a {
+  color: #fff;
+  text-decoration: none;
+}
+.footer__links {
+  list-style: none;
+  padding-left: 0;
+}
+@media (max-width: 768px) {
+  .footerDiv {
+    text-align: center;
+  }
+}

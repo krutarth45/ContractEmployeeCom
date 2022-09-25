@@ -2,11 +2,11 @@ import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import './HomeBody.css';
 const HomeBody = () => {
   return (
-    <Container>
+    <Container className="mb-3">
       <Row>
         <Col md={8}>
           <div className="homeBodyLeft">
-            <h2 className="fw-bold mt-5">Contract Jobs</h2>
+            <h2 className="fw-bold mt-4">Contract Jobs</h2>
             <h3 className="mt-3 mb-5 fw-bold" style={{ color: '#a9a9a9' }}>
               A Leading Career Destination For Professionals
             </h3>
@@ -59,7 +59,7 @@ const HomeBody = () => {
         </Col>
         <Col md={4}>
           <div className="homeBodyRight">
-            <h2 className="fw-bold mt-5">Candidate Registration</h2>
+            <h2 className="fw-bold mt-4">Candidate Registration</h2>
             <hr />
             <div className="headerBodyRight__modeShift">
               <div>
