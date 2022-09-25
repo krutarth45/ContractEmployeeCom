@@ -1,4 +1,4 @@
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import './HomeBody.css';
 const HomeBody = () => {
   return (
@@ -57,7 +57,78 @@ const HomeBody = () => {
             </Row>
           </div>
         </Col>
-        <Col md={4}></Col>
+        <Col md={4}>
+          <div className="homeBodyRight">
+            <h2 className="fw-bold mt-5">Candidate Registration</h2>
+            <hr />
+            <div className="headerBodyRight__modeShift">
+              <div>
+                <input
+                  type="radio"
+                  name="mode"
+                  id="contractor"
+                  value="Contractor"
+                  checked
+                />
+                <label htmlFor="Contractor">Contractor</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  name="mode"
+                  id="employer"
+                  value="Employer"
+                />
+                <label htmlFor="Employer">Employer</label>
+              </div>
+            </div>
+            <div className="mt-3">
+              <Form>
+                <Form.Group className="mb-1" controlId="formBasicEmail">
+                  <Form.Label className="homeBodyRight__formLabel">
+                    Email address
+                  </Form.Label>
+                  <Form.Control type="email" placeholder="Enter email" />
+                </Form.Group>
+                <Form.Group className="mb-1" controlId="formBasicUsername">
+                  <Form.Label className="homeBodyRight__formLabel">
+                    Username
+                  </Form.Label>
+                  <Form.Control type="text" placeholder="Enter username" />
+                </Form.Group>
+                <Form.Group className="mb-1" controlId="formBasicContact">
+                  <Form.Label className="homeBodyRight__formLabel">
+                    Contact
+                  </Form.Label>
+                  <Form.Control
+                    type="number"
+                    placeholder="Enter contact number"
+                  />
+                </Form.Group>
+                <Form.Group className="mb-2" controlId="formBasicPassword">
+                  <Form.Label className="homeBodyRight__formLabel">
+                    Password
+                  </Form.Label>
+                  <Form.Control type="password" placeholder="Password" />
+                </Form.Group>
+                <Form.Group className="mb-2" controlId="formBasicCheckbox">
+                  <div className="d-flex align-items-center">
+                    <Form.Check
+                      type="checkbox"
+                      // label="Agree to Terms & Conditions"
+                    />
+                    <a href="/" style={{ textDecoration: 'none' }}>
+                      Agree to Terms & Conditions
+                    </a>
+                  </div>
+                </Form.Group>
+                <Button style={{ background: '#3b5998' }} type="submit">
+                  Submit
+                </Button>
+              </Form>
+            </div>
+          </div>
+        </Col>
       </Row>
     </Container>
   );

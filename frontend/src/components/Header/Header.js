@@ -1,4 +1,4 @@
-import { Navbar, Nav } from 'react-bootstrap';
+import { Navbar, Nav, Form, Row, Col, Button } from 'react-bootstrap';
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Header.css';
@@ -30,11 +30,33 @@ const Header = () => {
         <Nav className="ms-auto">
           <div className="headerRight">
             <div className="headerRight__loginForm">
-              <form>
+              {/* <form>
                 <input type="text" name="email" placeholder="Email Address" />
                 <input type="password" name="password" placeholder="Password" />
                 <button id="headerForm__Login">Login</button>
-              </form>
+              </form> */}
+              <Form>
+                <Row>
+                  <Col>
+                    <Form.Control type="email" placeholder="Email" />
+                  </Col>
+                  <Col>
+                    <Form.Control type="password" placeholder="Password" />
+                  </Col>
+                  <Col>
+                    <Button
+                      style={{
+                        background: '#3b5998',
+                        border: 'none',
+                        fontWeight: '700'
+                      }}
+                      type="submit"
+                    >
+                      Login
+                    </Button>
+                  </Col>
+                </Row>
+              </Form>
             </div>
             <div className="headerRight__modeShift">Go To Employer Sign In</div>
           </div>
