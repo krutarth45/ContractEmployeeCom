@@ -21,6 +21,7 @@ const HomeBody = () => {
       ),
     passwordConfirmation: yup
       .string()
+      .required()
       .oneOf([yup.ref('password'), null], 'Passwords must match'),
     terms: yup.bool().required().oneOf([true], 'terms must be accepted')
   });
