@@ -111,6 +111,18 @@ const HomeBody = () => {
                   </Form.Label>
                   <Form.Control type="password" placeholder="Password" />
                 </Form.Group>
+                <Form.Group
+                  className="mb-2"
+                  controlId="formBasicPasswordConfirm"
+                >
+                  <Form.Label className="homeBodyRight__formLabel">
+                    Re-enter Password
+                  </Form.Label>
+                  <Form.Control
+                    type="password"
+                    placeholder="Password Confirmation"
+                  />
+                </Form.Group>
                 <Form.Group className="mb-2" controlId="formBasicCheckbox">
                   <div className="d-flex align-items-center">
                     <Form.Check
