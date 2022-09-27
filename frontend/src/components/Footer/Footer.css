@@ -11,6 +11,10 @@
   color: #fff;
   text-decoration: none;
 }
+.footer__links a:hover {
+  color: black;
+  text-decoration: underline;
+}
 .footer__links {
   list-style: none;
   padding-left: 0;

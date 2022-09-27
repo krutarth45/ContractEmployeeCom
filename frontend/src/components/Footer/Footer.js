@@ -16,16 +16,16 @@ const Footer = () => {
           <h4>LINKS</h4>
           <ul className="footer__links">
             <li>
-              <a href="/">Privacy Policy</a>
+              <a href="/privacy-policy">Privacy Policy</a>
             </li>
             <li>
               <a href="/complaint">Complaint</a>
             </li>
             <li>
-              <a href="/">Grievance</a>
+              <a href="/grievance">Grievance</a>
             </li>
             <li>
-              <a href="/">Fraud Alert</a>
+              <a href="/fraud-alert">Fraud Alert</a>
             </li>
           </ul>
         </Col>
