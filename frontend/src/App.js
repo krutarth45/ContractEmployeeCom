@@ -7,6 +7,7 @@ import Complaints from './components/HomePages/Complaints';
 import Grievance from './components/HomePages/Grievance';
 import Fraud from './components/HomePages/Fraud';
 import Terms from './components/HomePages/Terms';
+import PrivacyPolicy from './components/HomePages/PrivacyPolicy';
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
       <Route path="/grievance" element={<Grievance />} />
       <Route path="/fraud-alert" element={<Fraud />} />
       <Route path="/terms-and-condition" element={<Terms />} />
+      <Route path="/privacy-policy" element={<PrivacyPolicy />} />
     </Routes>
   );
 };

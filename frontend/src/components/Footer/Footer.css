@@ -1,10 +1,11 @@
 .footerDiv {
   background: #3b5998;
   width: 100%;
-  color: #fff;
+  color: #fff !important;
 }
 .footerDiv h4 {
   font-weight: bold !important;
+  color: #fff !important;
   font-size: 15px;
 }
 .footer__links a {
