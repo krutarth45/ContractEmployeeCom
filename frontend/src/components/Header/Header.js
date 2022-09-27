@@ -5,7 +5,7 @@ import { Formik } from 'formik';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Header.css';
 
-const Header = () => {
+const Header = ({ mode, setMode }) => {
   const schema = yup.object().shape({
     email: yup.string().required('Email is required').email(),
     password: yup.string().required('Password is required')
@@ -102,7 +102,15 @@ const Header = () => {
                 )}
               </Formik>
             </div>
-            <div className="headerRight__modeShift">Go To Employer Sign In</div>
+            <div
+              className="headerRight__modeShift"
+              onClick={() => {
+                setMode((prev) => !prev);
+              }}
+              style={{ cursor: 'pointer' }}
+            >
+              {mode ? 'Go To Employer Sign In' : 'Go To Contractor Sign In'}
+            </div>
           </div>
         </Nav>
       </Navbar.Collapse>
