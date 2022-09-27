@@ -93,7 +93,7 @@ const HomeBody = ({ mode, setMode }) => {
                   id="contractor"
                   value="Contractor"
                   checked={mode}
-                  onClick={() => {
+                  onChange={() => {
                     if (mode) {
                       return;
                     }
@@ -109,7 +109,7 @@ const HomeBody = ({ mode, setMode }) => {
                   id="employer"
                   value="Employer"
                   checked={!mode}
-                  onClick={() => {
+                  onChange={() => {
                     if (!mode) {
                       return;
                     }

@@ -32,7 +32,9 @@ form input {
   margin: 0 5px;
 }
 .headerRight__modeShift {
-  margin-right: 108px;
+  margin-right: 42px;
+  float: right;
+  width: 170px;
   text-align: right;
   font-weight: 700;
   color: #fff !important;
@@ -49,6 +51,7 @@ form input {
 }
 @media (max-width: 992px) {
   .headerRight__modeShift {
+    float: left;
     text-align: left;
     margin-left: 5px;
   }

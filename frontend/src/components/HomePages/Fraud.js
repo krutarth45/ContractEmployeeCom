@@ -5,7 +5,13 @@ const Fraud = () => {
     <Container className="homeSubPages">
       <Row className="text-center my-5">
         <Col md={12}>
-          <h2 style={{ textDecoration: 'underline', fontWeight: 'bold' }}>
+          <h2
+            style={{
+              textDecoration: 'underline',
+              fontWeight: 'bold',
+              color: '#a9a9a9'
+            }}
+          >
             Welcome to Contractemploy.com Security Centre
           </h2>
         </Col>

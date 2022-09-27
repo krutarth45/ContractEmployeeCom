@@ -48,11 +48,10 @@ const Header = ({ mode, setMode }) => {
               >
                 {({ handleSubmit, handleChange, values, touched, errors }) => (
                   <Form noValidate onSubmit={handleSubmit}>
-                    <Row>
+                    <div className="d-flex" style={{ marginRight: '30px' }}>
                       <Form.Group
-                        as={Col}
                         controlId="validationFormik101"
-                        className="position-relative"
+                        className="position-relative px-1"
                       >
                         <Form.Control
                           type="email"
@@ -68,9 +67,8 @@ const Header = ({ mode, setMode }) => {
                         </Form.Control.Feedback>
                       </Form.Group>
                       <Form.Group
-                        as={Col}
                         controlId="validationFormik102"
-                        className="position-relative"
+                        className="position-relative px-1"
                       >
                         <Form.Control
                           type="password"
@@ -85,7 +83,7 @@ const Header = ({ mode, setMode }) => {
                           {errors.password}
                         </Form.Control.Feedback>
                       </Form.Group>
-                      <Col>
+                      <div>
                         <Button
                           style={{
                             background: '#3b5998',
@@ -96,18 +94,18 @@ const Header = ({ mode, setMode }) => {
                         >
                           Login
                         </Button>
-                      </Col>
-                    </Row>
+                      </div>
+                    </div>
                   </Form>
                 )}
               </Formik>
             </div>
             <div
               className="headerRight__modeShift"
+              style={{ cursor: 'pointer' }}
               onClick={() => {
                 setMode((prev) => !prev);
               }}
-              style={{ cursor: 'pointer' }}
             >
               {mode ? 'Go To Employer Sign In' : 'Go To Contractor Sign In'}
             </div>
