@@ -2,7 +2,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import './index.css';
 const Terms = () => {
   return (
-    <Container>
+    <Container className="homeSubPages">
       <Row className="text-center my-5">
         <Col md={12}>
           <h2 style={{ textDecoration: 'underline', fontWeight: 'bold' }}>
