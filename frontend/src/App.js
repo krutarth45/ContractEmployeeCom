@@ -1,17 +1,16 @@
-import React, { Fragment } from 'react';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import Header from './components/Header/Header';
-import Footer from './components//Footer/Footer';
-import HomeBody from './components/HomeBody/HomeBody';
+import Home from './pages/Home';
+import Complaints from './components/HomePages/Complaints';
 
 const App = () => {
   return (
-    <Fragment>
-      <Header />
-      <HomeBody />
-      <Footer />
-    </Fragment>
+    <Routes>
+      <Route path="/" element={<Home />} exact />
+      <Route path="/complaint" element={<Complaints />} />
+    </Routes>
   );
 };
 

@@ -19,7 +19,7 @@ const Footer = () => {
               <a href="/">Privacy Policy</a>
             </li>
             <li>
-              <a href="/">Complaint</a>
+              <a href="/complaint">Complaint</a>
             </li>
             <li>
               <a href="/">Grievance</a>
