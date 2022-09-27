@@ -25,3 +25,9 @@
     text-align: center;
   }
 }
+@media (min-width: 1500px) {
+  .footerDiv {
+    position: absolute;
+    bottom: 0;
+  }
+}
