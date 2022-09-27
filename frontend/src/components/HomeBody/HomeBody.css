@@ -22,3 +22,6 @@ span {
 .homeBodyRight__formLabel {
   margin-left: 0 !important;
 }
+.terms-link a:hover {
+  text-decoration: underline !important;
+}

@@ -250,7 +250,7 @@ const HomeBody = () => {
                       className="mb-2 position-relative"
                       controlId="formBasicCheckbox"
                     >
-                      <div className="d-flex align-items-center">
+                      <div className="d-flex align-items-center terms-link">
                         <Form.Check
                           required
                           name="terms"
@@ -262,7 +262,10 @@ const HomeBody = () => {
                           id="validationFormik106"
                           feedbackTooltip
                         />
-                        <a href="/" style={{ textDecoration: 'none' }}>
+                        <a
+                          href="/terms-and-condition"
+                          style={{ textDecoration: 'none' }}
+                        >
                           Agree to Terms & Conditions
                         </a>
                       </div>
