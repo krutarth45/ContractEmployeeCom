@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -10,9 +10,10 @@ import Terms from './components/HomePages/Terms';
 import PrivacyPolicy from './components/HomePages/PrivacyPolicy';
 
 const App = () => {
+  const [mode, setMode] = useState(true);
   return (
     <Routes>
-      <Route path="/" element={<Home />} exact />
+      <Route path="/" element={<Home mode={mode} setMode={setMode} />} exact />
       <Route path="/complaint" element={<Complaints />} />
       <Route path="/grievance" element={<Grievance />} />
       <Route path="/fraud-alert" element={<Fraud />} />

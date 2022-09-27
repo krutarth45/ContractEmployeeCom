@@ -1,7 +1,8 @@
 import { Row, Col } from 'react-bootstrap';
 import { useMediaQuery } from 'react-responsive';
+import { Link } from 'react-router-dom';
 import './Footer.css';
-const Footer = () => {
+const Footer = ({ setMode }) => {
   const medium = useMediaQuery({
     query: '(max-width: 768px)'
   });
@@ -32,11 +33,11 @@ const Footer = () => {
         <Col md={3} className={`${medium ? 'mb-3' : ''}`}>
           <h4>LINKS</h4>
           <ul className="footer__links">
-            <li>
-              <a href="/">Jobseeker Sign Up</a>
+            <li onClick={() => setMode(true)}>
+              <Link to="/">Jobseeker Sign Up</Link>
             </li>
-            <li>
-              <a href="/">Employer Sign Up</a>
+            <li onClick={() => setMode(false)}>
+              <Link to="/">Employer Sign Up</Link>
             </li>
           </ul>
         </Col>

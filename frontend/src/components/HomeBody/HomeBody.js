@@ -2,7 +2,7 @@ import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import * as yup from 'yup';
 import { Formik } from 'formik';
 import './HomeBody.css';
-const HomeBody = () => {
+const HomeBody = ({ mode, setMode }) => {
   const phoneRegExp =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
   const schema = yup.object().shape({
@@ -92,7 +92,13 @@ const HomeBody = () => {
                   name="mode"
                   id="contractor"
                   value="Contractor"
-                  checked
+                  checked={mode}
+                  onClick={() => {
+                    if (mode) {
+                      return;
+                    }
+                    setMode((prev) => !prev);
+                  }}
                 />
                 <label htmlFor="Contractor">Contractor</label>
               </div>
@@ -102,6 +108,13 @@ const HomeBody = () => {
                   name="mode"
                   id="employer"
                   value="Employer"
+                  checked={!mode}
+                  onClick={() => {
+                    if (!mode) {
+                      return;
+                    }
+                    setMode((prev) => !prev);
+                  }}
                 />
                 <label htmlFor="Employer">Employer</label>
               </div>
