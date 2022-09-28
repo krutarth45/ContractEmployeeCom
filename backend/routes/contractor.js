@@ -10,16 +10,19 @@ router.post('/', async (req, res) => {
     if (user) {
       return res.status(400).send({ error: 'Email is already registered' });
     }
-    user = new User({
+    user = new Contractor({
       firstName,
       lastName,
       email,
       contact,
       password
     });
-    const salt = bcrypt.genSalt(10);
+    const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, salt);
+    await user.save();
     res.send('User Registered');
-  } catch (error) {}
+  } catch (error) {
+    res.status(500).send(error);
+  }
 });
 module.exports = router;

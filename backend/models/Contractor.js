@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { ObjectId } = mongoose.Schema;
 
-const UserSchema = new mongoose.Schema({
+const ContractorSchema = new mongoose.Schema({
   firstName: {
     type: String,
     trim: true
@@ -92,5 +92,4 @@ const UserSchema = new mongoose.Schema({
   }
 });
 
-const Contractor = mongoose.model('Contractor', UserSchema);
-module.exports = Contractor;
+module.exports = Contractor = mongoose.model('contractor', ContractorSchema);
