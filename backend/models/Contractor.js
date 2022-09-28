@@ -2,6 +2,14 @@ const mongoose = require('mongoose');
 const { ObjectId } = mongoose.Schema;
 
 const UserSchema = new mongoose.Schema({
+  firstName: {
+    type: String,
+    trim: true
+  },
+  lastName: {
+    type: String,
+    trim: true
+  },
   email: {
     type: String,
     trim: true,

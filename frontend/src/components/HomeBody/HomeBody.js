@@ -5,9 +5,17 @@ import './HomeBody.css';
 const HomeBody = ({ mode, setMode }) => {
   const phoneRegExp =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+  const nameRegExp = /^[A-Za-z]+$/;
   const schema = yup.object().shape({
+    firstName: yup
+      .string()
+      .required('First Name is required')
+      .matches(nameRegExp, 'Name can only contain alphabets'),
+    lastName: yup
+      .string()
+      .required('Last Name is required')
+      .matches(nameRegExp, 'Name can only contain alphabets'),
     email: yup.string().required('Email is required').email(),
-    username: yup.string().required('Username is required'),
     contact: yup
       .string()
       .required('Phone number is required.')
@@ -126,8 +134,9 @@ const HomeBody = ({ mode, setMode }) => {
                   console.log(values);
                 }}
                 initialValues={{
+                  firstName: '',
+                  lastName: '',
                   email: '',
-                  username: '',
                   contact: '',
                   password: '',
                   passwordConfirmation: '',
@@ -136,6 +145,53 @@ const HomeBody = ({ mode, setMode }) => {
               >
                 {({ handleSubmit, handleChange, values, touched, errors }) => (
                   <Form noValidate onSubmit={handleSubmit}>
+                    <Form.Label className="homeBodyRight__formLabel">
+                      Name
+                    </Form.Label>
+                    <div className="d-flex mb-1">
+                      <Form.Group
+                        controlId="validationFormik101"
+                        className="position-relative ps-0 pe-1"
+                      >
+                        <Form.Control
+                          type="text"
+                          name="firstName"
+                          value={values.firstName}
+                          onChange={handleChange}
+                          isValid={touched.firstName && !errors.firstName}
+                          isInvalid={!!errors.firstName}
+                          placeholder="First Name"
+                        />
+                        <Form.Control.Feedback
+                          type="invalid"
+                          tooltip
+                          style={{ right: '0px' }}
+                        >
+                          {errors.firstName}
+                        </Form.Control.Feedback>
+                      </Form.Group>
+                      <Form.Group
+                        controlId="validationFormik102"
+                        className="position-relative ps-1 pe-0"
+                      >
+                        <Form.Control
+                          type="text"
+                          name="lastName"
+                          placeholder="Last Name"
+                          value={values.lastName}
+                          onChange={handleChange}
+                          isValid={touched.lastName && !errors.lastName}
+                          isInvalid={!!errors.lastName}
+                        />
+                        <Form.Control.Feedback
+                          type="invalid"
+                          tooltip
+                          style={{ right: '0px' }}
+                        >
+                          {errors.lastName}
+                        </Form.Control.Feedback>
+                      </Form.Group>
+                    </div>
                     <Form.Group
                       className="mb-1 position-relative"
                       controlId="formBasicEmail"
@@ -158,30 +214,6 @@ const HomeBody = ({ mode, setMode }) => {
                         tooltip
                       >
                         {errors.email}
-                      </Form.Control.Feedback>
-                    </Form.Group>
-                    <Form.Group
-                      className="mb-1 position-relative"
-                      controlId="formBasicUsername"
-                    >
-                      <Form.Label className="homeBodyRight__formLabel">
-                        Username
-                      </Form.Label>
-                      <Form.Control
-                        type="text"
-                        placeholder="Enter username"
-                        name="username"
-                        value={values.username}
-                        onChange={handleChange}
-                        isValid={touched.username && !errors.username}
-                        isInvalid={!!errors.username}
-                      />
-                      <Form.Control.Feedback
-                        type="invalid"
-                        style={{ right: '0px' }}
-                        tooltip
-                      >
-                        {errors.username}
                       </Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group
