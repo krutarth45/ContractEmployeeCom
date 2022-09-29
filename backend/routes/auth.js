@@ -5,7 +5,7 @@ const Contractor = require('../models/Contractor');
 router.get('/', auth, async (req, res) => {
   try {
     const contractor = await Contractor.findById(req.user.id).select(
-      '-password'
+      '-password -token'
     );
     res.json(contractor);
   } catch (error) {
