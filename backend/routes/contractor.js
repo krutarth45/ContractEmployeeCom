@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
   try {
     let user = await Contractor.findOne({ email });
     if (user) {
-      return res.status(400).send({ error: 'Email is already registered' });
+      return res.status(400).send({ message: 'Email is already registered' });
     }
     user = new Contractor({
       firstName,
@@ -35,7 +35,6 @@ router.post('/', async (req, res) => {
       if (err) throw err;
       user.token = decoded;
     });
-    console.log(user);
     user = await user.save();
     const token = await new Token({
       contractorId: user._id,
@@ -50,9 +49,10 @@ router.post('/', async (req, res) => {
       user.firstName,
       url
     );
-    res.send(
-      'Registration Successfull, Please verify your email to get Started.'
-    );
+    res.send({
+      message:
+        'Registration Successfull, Please verify your email to get Started.'
+    });
   } catch (error) {
     res.status(500).send(error);
   }

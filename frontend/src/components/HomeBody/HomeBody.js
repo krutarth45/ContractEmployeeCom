@@ -1,8 +1,12 @@
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import axios from 'axios';
 import * as yup from 'yup';
 import { Formik } from 'formik';
 import './HomeBody.css';
+import { useState } from 'react';
 const HomeBody = ({ mode, setMode }) => {
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const phoneRegExp =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
   const nameRegExp = /^[A-Za-z]+$/;
@@ -33,6 +37,25 @@ const HomeBody = ({ mode, setMode }) => {
       .oneOf([yup.ref('password'), null], 'Passwords must match'),
     terms: yup.bool().required().oneOf([true], 'terms must be accepted')
   });
+  const handleRegisterSubmit = async (values) => {
+    try {
+      const url = 'http://localhost:8000/contractor/';
+      const { data } = await axios.post(url, values);
+      setError('');
+      setSuccess(data.message);
+    } catch (error) {
+      setSuccess('');
+      if (
+        error.response &&
+        error.response.status >= 400 &&
+        error.response.status <= 500
+      ) {
+        setError(error.response.data.message);
+      } else {
+        setError('Some Error has Occured, Please try again.');
+      }
+    }
+  };
   return (
     <Container className="mb-3">
       <Row>
@@ -131,7 +154,7 @@ const HomeBody = ({ mode, setMode }) => {
               <Formik
                 validationSchema={schema}
                 onSubmit={(values) => {
-                  console.log(values);
+                  handleRegisterSubmit(values);
                 }}
                 initialValues={{
                   firstName: '',
@@ -315,6 +338,8 @@ const HomeBody = ({ mode, setMode }) => {
                         </a>
                       </div>
                     </Form.Group>
+                    {success && <p className="text-success">{success}</p>}
+                    {error && <p className="text-danger">{error}</p>}
                     <Button style={{ background: '#3b5998' }} type="submit">
                       Submit
                     </Button>
