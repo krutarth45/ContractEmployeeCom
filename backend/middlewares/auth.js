@@ -1,6 +1,9 @@
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const Contractor = require('../models/Contractor');
+const Token = require('../models/Token');
+const crypto = require('crypto');
+const sendEmail = require('../utils/sendEmail');
 
 module.exports = async function (req, res, next) {
   const token = req.header('x-auth-token');
@@ -15,6 +18,22 @@ module.exports = async function (req, res, next) {
     });
     if (!contractor) {
       throw new Error();
+    }
+    if (!contractor.verified) {
+      let regToken = await Token.findOne({ contractorId: contractor._id });
+      if (!regToken) {
+        regToken = await new Token({
+          contractorId: contractor._id,
+          token: crypto.randomBytes(32).toString('hex')
+        }).save();
+        const url = `${config.get('base_url')}contractor/${
+          contractor._id
+        }/verify/${regToken.token}`;
+        await sendEmail(contractor.email, 'Verify Email', url);
+      }
+      return res
+        .status(400)
+        .send({ message: 'An Email sent to your account please verify' });
     }
     req.token = token;
     req.user = contractor;
