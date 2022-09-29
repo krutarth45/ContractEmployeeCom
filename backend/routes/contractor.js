@@ -7,6 +7,7 @@ const bcrypt = require('bcryptjs');
 
 router.post('/', async (req, res) => {
   const { firstName, lastName, email, contact, password } = req.body;
+  let token = '';
   try {
     let user = await Contractor.findOne({ email });
     if (user) {
@@ -17,7 +18,8 @@ router.post('/', async (req, res) => {
       lastName,
       email,
       contact,
-      password
+      password,
+      token
     });
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, salt);
@@ -28,7 +30,7 @@ router.post('/', async (req, res) => {
     };
     jwt.sign(payload, config.get('jwtSecret'), (err, token) => {
       if (err) throw err;
-      res.json({ token });
+      user.token = token;
     });
     await user.save();
     res.send('Contractor Registered');

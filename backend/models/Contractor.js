@@ -89,6 +89,9 @@ const ContractorSchema = new mongoose.Schema({
   appliedTo: {
     type: ObjectId,
     ref: 'Job'
+  },
+  token: {
+    type: String
   }
 });
 
