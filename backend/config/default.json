@@ -1,3 +1,4 @@
 {
-  "mongoURI": "mongodb+srv://krutarth:krutarth@contract-employee-clust.34livyo.mongodb.net/test"
+  "mongoURI": "mongodb+srv://krutarth:krutarth@contract-employee-clust.34livyo.mongodb.net/test",
+  "jwtSecret": "HIHIHI"
 }

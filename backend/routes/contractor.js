@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
+const config = require('config');
 const Contractor = require('../models/Contractor');
 const bcrypt = require('bcryptjs');
 
@@ -19,8 +21,17 @@ router.post('/', async (req, res) => {
     });
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, salt);
+    const payload = {
+      user: {
+        id: user.id
+      }
+    };
+    jwt.sign(payload, config.get('jwtSecret'), (err, token) => {
+      if (err) throw err;
+      res.json({ token });
+    });
     await user.save();
-    res.send('User Registered');
+    res.send('Contractor Registered');
   } catch (error) {
     res.status(500).send(error);
   }
