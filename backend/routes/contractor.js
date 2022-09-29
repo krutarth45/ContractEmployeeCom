@@ -31,10 +31,11 @@ router.post('/', async (req, res) => {
         id: user.id
       }
     };
-    jwt.sign(payload, config.get('jwtSecret'), (err, token) => {
+    jwt.sign(payload, config.get('jwtSecret'), (err, decoded) => {
       if (err) throw err;
-      user.token = token;
+      user.token = decoded;
     });
+    console.log(user);
     user = await user.save();
     const token = await new Token({
       contractorId: user._id,
@@ -43,7 +44,12 @@ router.post('/', async (req, res) => {
     const url = `${config.get('base_url')}contractor/${user._id}/verify/${
       token.token
     }`;
-    await sendEmail(user.email, 'Verify Email', url);
+    await sendEmail(
+      user.email,
+      'Verify your Contract Employee Account Email',
+      user.firstName,
+      url
+    );
     res.send(
       'Registration Successfull, Please verify your email to get Started.'
     );
