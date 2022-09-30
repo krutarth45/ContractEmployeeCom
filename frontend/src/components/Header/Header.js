@@ -1,15 +1,41 @@
 import { Navbar, Nav, Form, Button } from 'react-bootstrap';
-import React from 'react';
+import React, { useState } from 'react';
 import * as yup from 'yup';
 import { Formik } from 'formik';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Header.css';
 
 const Header = ({ mode, setMode }) => {
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
   const schema = yup.object().shape({
     email: yup.string().required('Email is required').email(),
     password: yup.string().required('Password is required')
   });
+  const handleLoginSubmit = async (values) => {
+    try {
+      const url = 'http://localhost:8000/contractor/login';
+      const { data } = await axios.post(url, values);
+      setError('');
+      if (data.message === 'detailsUp') {
+        navigate('/contractor/job-feed');
+      } else if (data.message === 'detailsDown') {
+        navigate('/contractor/user-details');
+      }
+    } catch (error) {
+      if (
+        error.response &&
+        error.response.status >= 400 &&
+        error.response.status <= 500
+      ) {
+        setError(error.response.data.message);
+      } else {
+        setError('Some Error has Occured, Please try again.');
+      }
+    }
+  };
   return (
     <Navbar
       collapseOnSelect
@@ -39,7 +65,7 @@ const Header = ({ mode, setMode }) => {
               <Formik
                 validationSchema={schema}
                 onSubmit={(values) => {
-                  console.log(values);
+                  handleLoginSubmit(values);
                 }}
                 initialValues={{
                   email: '',
@@ -109,6 +135,7 @@ const Header = ({ mode, setMode }) => {
             >
               {mode ? 'Go To Employer Sign In' : 'Go To Contractor Sign In'}
             </div>
+            {error && <div className="text-danger">{error}</div>}
           </div>
         </Nav>
       </Navbar.Collapse>

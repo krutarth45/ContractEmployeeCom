@@ -10,7 +10,7 @@ const { auth } = require('../middlewares/auth');
 const crypto = require('crypto');
 
 // Contractor Registration
-router.post('/', async (req, res) => {
+router.post('/register', async (req, res) => {
   const { firstName, lastName, email, contact, password } = req.body;
   try {
     let user = await Contractor.findOne({ email });
@@ -84,11 +84,11 @@ router.post('/login', async (req, res) => {
   // 1. Check password.
   let user = await Contractor.findOne({ email: req.body.email });
   if (!user) {
-    throw new Error('Invalid Credentials');
+    return res.status(400).send({ error: 'Invalid Credentials' });
   }
   const isValid = await bcrypt.compare(req.body.password, user.password);
   if (!isValid) {
-    throw new Error('Invalid Credentials');
+    return res.status(400).send({ error: 'Invalid Credentials' });
   }
   // 2. Renew Token.
   const payload = {
