@@ -53,7 +53,7 @@ form input {
   .headerRight__modeShift {
     float: left;
     text-align: left;
-    margin-left: 5px;
+    margin-left: 10px;
   }
   .headerRight {
     transform: translateX(0px);

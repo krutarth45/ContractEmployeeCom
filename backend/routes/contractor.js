@@ -84,11 +84,11 @@ router.post('/login', async (req, res) => {
   // 1. Check password.
   let user = await Contractor.findOne({ email: req.body.email });
   if (!user) {
-    return res.status(400).send({ error: 'Invalid Credentials' });
+    return res.status(400).send({ message: 'Invalid Credentials' });
   }
   const isValid = await bcrypt.compare(req.body.password, user.password);
   if (!isValid) {
-    return res.status(400).send({ error: 'Invalid Credentials' });
+    return res.status(400).send({ message: 'Invalid Credentials' });
   }
   // 2. Renew Token.
   const payload = {

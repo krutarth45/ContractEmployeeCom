@@ -6,8 +6,12 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Header.css';
+import { useMediaQuery } from 'react-responsive';
 
 const Header = ({ mode, setMode }) => {
+  const large = useMediaQuery({
+    query: '(max-width: 992px)'
+  });
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const schema = yup.object().shape({
@@ -135,8 +139,13 @@ const Header = ({ mode, setMode }) => {
             >
               {mode ? 'Go To Employer Sign In' : 'Go To Contractor Sign In'}
             </div>
-            {error && <div className="text-danger">{error}</div>}
+            {!large && error && (
+              <h4 className="ps-2 error-text text-danger">{error}</h4>
+            )}
           </div>
+          {large && error && (
+            <h4 className="ps-2 error-text text-danger">{error}</h4>
+          )}
         </Nav>
       </Navbar.Collapse>
     </Navbar>
