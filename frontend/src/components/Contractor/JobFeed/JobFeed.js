@@ -2,7 +2,14 @@ import { useRef, useState } from 'react';
 import { Col, Container, Form, Row } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
-import { salary, skills, totalExp } from '../../../data';
+import {
+  cityNames,
+  currency,
+  notice,
+  salary,
+  skills,
+  totalExp
+} from '../../../data';
 import './JobFeed.css';
 
 const JobFeed = () => {
@@ -15,7 +22,11 @@ const JobFeed = () => {
   const [curMonCurr, setCurMonCurr] = useState([]);
   const [expMonSal, setExpMonSal] = useState([]);
   const [expMonCurr, setExpMonCurr] = useState([]);
+  const [noticePeriod, setNoticePeriod] = useState([]);
+  const [currentCity, setCurrentCity] = useState([]);
+  const [preferredCities, setPreferredCities] = useState([]);
   const ref = useRef();
+  const ref2 = useRef();
   return (
     <div>
       <Container>
@@ -108,7 +119,7 @@ const JobFeed = () => {
             </Col>
             <Col sm={12} md={6}>
               <Form.Group>
-                <Form.Label>Current Job Type: </Form.Label>
+                <Form.Label>Current Monthly Salary: </Form.Label>
                 <div className="d-flex align-items-center">
                   <Typeahead
                     id="basic-typeahead-current-month-salary"
@@ -123,7 +134,7 @@ const JobFeed = () => {
                     id="basic-typeahead-current-sal-currency"
                     labelKey="curMonCurr"
                     onChange={setCurMonCurr}
-                    options={salary}
+                    options={currency}
                     placeholder="Current Salary Currency"
                     selected={curMonCurr}
                   />
@@ -132,12 +143,76 @@ const JobFeed = () => {
             </Col>
           </Row>
           <Row className="mt-2">
-            <Col sm={12} md={6}></Col>
-            <Col sm={12} md={6}></Col>
+            <Col sm={12} md={6}>
+              <Form.Group>
+                <Form.Label>Current Monthly Salary: </Form.Label>
+                <div className="d-flex align-items-center">
+                  <Typeahead
+                    id="basic-typeahead-exp-month-salary"
+                    labelKey="expMonSal"
+                    onChange={setExpMonSal}
+                    options={salary}
+                    placeholder="Expected Monthly Salary"
+                    selected={expMonSal}
+                  />
+                  <Typeahead
+                    className="ms-3"
+                    id="basic-typeahead-current-sal-currency"
+                    labelKey="expMonCurr"
+                    onChange={setExpMonCurr}
+                    options={currency}
+                    placeholder="Salary Currency"
+                    selected={expMonCurr}
+                  />
+                </div>
+              </Form.Group>
+            </Col>
+            <Col sm={12} md={6}>
+              <Form.Group>
+                <Form.Label>Notice Period: </Form.Label>
+                <Typeahead
+                  id="basic-typeahead-notice-period"
+                  labelKey="noticePeriod"
+                  onChange={setNoticePeriod}
+                  options={notice}
+                  placeholder="Notice Period"
+                  selected={noticePeriod}
+                />
+              </Form.Group>
+            </Col>
           </Row>
           <Row className="mt-2">
-            <Col sm={12} md={6}></Col>
-            <Col sm={12} md={6}></Col>
+            <Col sm={12} md={6}>
+              <Form.Group>
+                <Form.Label>Current City: </Form.Label>
+                <Typeahead
+                  id="basic-typeahead-current-city"
+                  labelKey="currentCity"
+                  onChange={setCurrentCity}
+                  options={cityNames}
+                  placeholder="Current City"
+                  selected={currentCity}
+                />
+              </Form.Group>
+            </Col>
+            <Col sm={12} md={6}>
+              <Form.Group>
+                <Form.Label>Preferred Cities: </Form.Label>
+                <Typeahead
+                  multiple
+                  id="basic-typeahead-preferred-cities"
+                  labelKey="preferredCities"
+                  options={cityNames}
+                  placeholder="Preferred Cities"
+                  selected={preferredCities}
+                  ref={ref2}
+                  onChange={(selections) => {
+                    setPreferredCities(selections);
+                    ref2.current.toggleMenu();
+                  }}
+                />
+              </Form.Group>
+            </Col>
           </Row>
           <Row className="mt-2">
             <Col sm={12} md={6}></Col>
