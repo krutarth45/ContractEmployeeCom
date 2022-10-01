@@ -10,9 +10,9 @@ import {
   skills,
   totalExp
 } from '../../../data';
-import './JobFeed.css';
+import './ContractorDetails.css';
 
-const JobFeed = () => {
+const ContractorDetails = () => {
   const [totalExpYear, setTotalExpYear] = useState([]);
   const [relExpYear, setRelExpYear] = useState([]);
   const [skillInfo, setSkillInfo] = useState([]);
@@ -250,4 +250,4 @@ const JobFeed = () => {
   );
 };
 
-export default JobFeed;
+export default ContractorDetails;

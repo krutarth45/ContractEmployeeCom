@@ -1,11 +1,11 @@
 import ContractorHeader from '../../components/Contractor/ContractorHeader/ContractorHeader';
-import JobFeed from '../../components/Contractor/JobFeed/JobFeed';
+import ContractorDetails from '../../components/Contractor/ContractorDetails/ContractorDetails';
 
 const UserDetails = () => {
   return (
     <>
       <ContractorHeader />
-      <JobFeed />
+      <ContractorDetails />
     </>
   );
 };
