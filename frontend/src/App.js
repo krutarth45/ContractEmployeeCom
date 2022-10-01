@@ -10,6 +10,7 @@ import Terms from './components/HomePages/Terms';
 import PrivacyPolicy from './components/HomePages/PrivacyPolicy';
 import EmailVerify from './components/HomePages/EmailVerify';
 import UserDetails from './pages/Contractor/UserDetails';
+import JobFeed from './pages/Contractor/JobFeed';
 
 const App = () => {
   const [mode, setMode] = useState(true);
@@ -22,6 +23,7 @@ const App = () => {
       <Route path="/terms-and-condition" element={<Terms />} />
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
       <Route path="/contractor/:id/verify/:token" element={<EmailVerify />} />
+      <Route path="/contractor/job-feed" element={<JobFeed />} />
       <Route path="/contractor/user-details" element={<UserDetails />} />
     </Routes>
   );
