@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { Col, Container, Form, Row } from 'react-bootstrap';
+import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 import {
@@ -25,6 +25,7 @@ const JobFeed = () => {
   const [noticePeriod, setNoticePeriod] = useState([]);
   const [currentCity, setCurrentCity] = useState([]);
   const [preferredCities, setPreferredCities] = useState([]);
+  const [date, setDate] = useState(new Date());
   const ref = useRef();
   const ref2 = useRef();
   return (
@@ -215,9 +216,34 @@ const JobFeed = () => {
             </Col>
           </Row>
           <Row className="mt-2">
-            <Col sm={12} md={6}></Col>
-            <Col sm={12} md={6}></Col>
+            <Col sm={12} md={6}>
+              <Form.Group controlId="duedate">
+                <Form.Label>Date of Birth:</Form.Label>
+                <Form.Control
+                  type="date"
+                  name="duedate"
+                  placeholder="Due date"
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                />
+              </Form.Group>
+            </Col>
+            <Col sm={12} md={6}>
+              <Form.Group controlId="formFile" className="mb-3">
+                <Form.Label>Resume</Form.Label>
+                <Form.Control type="file" />
+              </Form.Group>
+            </Col>
           </Row>
+          <div className="my-2 text-center">
+            <Button
+              className="btn px-3 py-1"
+              type="submit"
+              style={{ backgroundColor: '#3b5998' }}
+            >
+              <span>Save</span>
+            </Button>
+          </div>
         </div>
       </Container>
     </div>
