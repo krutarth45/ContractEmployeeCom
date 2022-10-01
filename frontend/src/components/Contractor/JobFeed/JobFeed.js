@@ -2,7 +2,6 @@ import { useRef, useState } from 'react';
 import { Col, Container, Form, Row } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
-import { useMediaQuery } from 'react-responsive';
 import { skills, totalExp } from '../../../data';
 import './JobFeed.css';
 
@@ -11,10 +10,8 @@ const JobFeed = () => {
   const [relExpYear, setRelExpYear] = useState([]);
   const [skillInfo, setSkillInfo] = useState([]);
   const [companyName, setCompanyName] = useState('');
+  const [jobType, setJobType] = useState([]);
   const ref = useRef();
-  const medium = useMediaQuery({
-    query: '(max-width: 768px)'
-  });
   return (
     <div>
       <Container>
@@ -33,7 +30,7 @@ const JobFeed = () => {
         </Row>
         <div className="p-4 profileDetailsDiv h-auto">
           <Row>
-            <Col className={`${medium ? '' : 'w-50'}`} md={12}>
+            <Col sm={12} md={6}>
               <Form.Group>
                 <Form.Label>Total Experience: </Form.Label>
                 <Typeahead
@@ -46,7 +43,7 @@ const JobFeed = () => {
                 />
               </Form.Group>
             </Col>
-            <Col className={`${medium ? '' : 'w-50'}`} md={12}>
+            <Col sm={12} md={6}>
               <Form.Group>
                 <Form.Label>Relevant Experience: </Form.Label>
                 <Typeahead
@@ -61,7 +58,7 @@ const JobFeed = () => {
             </Col>
           </Row>
           <Row className="mt-2">
-            <Col className={`${medium ? '' : 'w-50'}`} md={12}>
+            <Col sm={12} md={6}>
               <Form.Group>
                 <Form.Label>Skills: </Form.Label>
                 <Typeahead
@@ -79,7 +76,7 @@ const JobFeed = () => {
                 />
               </Form.Group>
             </Col>
-            <Col className={`${medium ? '' : 'w-50'}`} md={12}>
+            <Col sm={12} md={6}>
               <Form.Group controlId="companyName">
                 <Form.Label>Current Company: </Form.Label>
                 <Form.Control
@@ -91,21 +88,56 @@ const JobFeed = () => {
               </Form.Group>
             </Col>
           </Row>
-          <Row>
-            <Col md={12}></Col>
-            <Col md={12}></Col>
+          <Row className="mt-2">
+            <Col sm={12} md={6}>
+              <Form.Group>
+                <Form.Label>Current Job Type: </Form.Label>
+                <Typeahead
+                  id="basic-typeahead-current-job-type"
+                  labelKey="jobType"
+                  onChange={setJobType}
+                  options={['Permanent', 'Contract']}
+                  placeholder="Current Job Type"
+                  selected={jobType}
+                />
+              </Form.Group>
+            </Col>
+            <Col sm={12} md={6}>
+              <Form.Group>
+                <Form.Label>Current Job Type: </Form.Label>
+                <div className="d-flex align-items-center">
+                  <Typeahead
+                    id="basic-typeahead-current-job-type"
+                    labelKey="jobType"
+                    onChange={setJobType}
+                    options={['Permanent', 'Contract']}
+                    placeholder="Current Job Type"
+                    selected={jobType}
+                  />
+                  <Typeahead
+                    className="ms-3"
+                    id="basic-typeahead-current-job-type"
+                    labelKey="jobType"
+                    onChange={setJobType}
+                    options={['Permanent', 'Contract']}
+                    placeholder="Current Job Type"
+                    selected={jobType}
+                  />
+                </div>
+              </Form.Group>
+            </Col>
           </Row>
-          <Row>
-            <Col md={12}></Col>
-            <Col md={12}></Col>
+          <Row className="mt-2">
+            <Col sm={12} md={6}></Col>
+            <Col sm={12} md={6}></Col>
           </Row>
-          <Row>
-            <Col className="w-100" md={6}></Col>
-            <Col className="w-100" md={6}></Col>
+          <Row className="mt-2">
+            <Col sm={12} md={6}></Col>
+            <Col sm={12} md={6}></Col>
           </Row>
-          <Row>
-            <Col className="w-100" md={6}></Col>
-            <Col className="w-100" md={6}></Col>
+          <Row className="mt-2">
+            <Col sm={12} md={6}></Col>
+            <Col sm={12} md={6}></Col>
           </Row>
         </div>
       </Container>
