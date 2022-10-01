@@ -140,11 +140,21 @@ const Header = ({ mode, setMode }) => {
               {mode ? 'Go To Employer Sign In' : 'Go To Contractor Sign In'}
             </div>
             {!large && error && (
-              <h4 className="ps-2 error-text text-danger">{error}</h4>
+              <p
+                className="ps-2 fw-bold error-text text-danger"
+                style={{ fontSize: '18px' }}
+              >
+                {error}
+              </p>
             )}
           </div>
           {large && error && (
-            <h4 className="ps-2 error-text text-danger">{error}</h4>
+            <p
+              className="ps-2 fw-bold error-text text-danger"
+              style={{ fontSize: '18px' }}
+            >
+              {error}
+            </p>
           )}
         </Nav>
       </Navbar.Collapse>
