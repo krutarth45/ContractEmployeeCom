@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { Col, Container, Form, Row } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
-import { skills, totalExp } from '../../../data';
+import { salary, skills, totalExp } from '../../../data';
 import './JobFeed.css';
 
 const JobFeed = () => {
@@ -11,6 +11,10 @@ const JobFeed = () => {
   const [skillInfo, setSkillInfo] = useState([]);
   const [companyName, setCompanyName] = useState('');
   const [jobType, setJobType] = useState([]);
+  const [curMonSal, setCurMonSal] = useState([]);
+  const [curMonCurr, setCurMonCurr] = useState([]);
+  const [expMonSal, setExpMonSal] = useState([]);
+  const [expMonCurr, setExpMonCurr] = useState([]);
   const ref = useRef();
   return (
     <div>
@@ -107,21 +111,21 @@ const JobFeed = () => {
                 <Form.Label>Current Job Type: </Form.Label>
                 <div className="d-flex align-items-center">
                   <Typeahead
-                    id="basic-typeahead-current-job-type"
-                    labelKey="jobType"
-                    onChange={setJobType}
-                    options={['Permanent', 'Contract']}
-                    placeholder="Current Job Type"
-                    selected={jobType}
+                    id="basic-typeahead-current-month-salary"
+                    labelKey="curMonSal"
+                    onChange={setCurMonSal}
+                    options={salary}
+                    placeholder="Current Monthly Salary"
+                    selected={curMonSal}
                   />
                   <Typeahead
                     className="ms-3"
-                    id="basic-typeahead-current-job-type"
-                    labelKey="jobType"
-                    onChange={setJobType}
-                    options={['Permanent', 'Contract']}
-                    placeholder="Current Job Type"
-                    selected={jobType}
+                    id="basic-typeahead-current-sal-currency"
+                    labelKey="curMonCurr"
+                    onChange={setCurMonCurr}
+                    options={salary}
+                    placeholder="Current Salary Currency"
+                    selected={curMonCurr}
                   />
                 </div>
               </Form.Group>

@@ -16,6 +16,27 @@ export const totalExp = [
   '15',
   '15+'
 ];
+export const salary = [
+  '1-2k',
+  '2-3k',
+  '3-4k',
+  '4-5k',
+  '5-6k',
+  '6-7k',
+  '7-8k',
+  '8-9k',
+  '9-10k',
+  '10-20k',
+  '20-30k',
+  '30-40k',
+  '40-50k',
+  '50-60k',
+  '60-70k',
+  '70-80k',
+  '80-90k',
+  '90k-100k',
+  '100k +'
+];
 export const skills = [
   'Algorithms',
   'Analytical Skills',
@@ -102,5 +123,6 @@ export const skills = [
 ];
 export default {
   totalExp,
+  salary,
   skills
 };
