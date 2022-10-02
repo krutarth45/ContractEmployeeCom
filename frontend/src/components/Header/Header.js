@@ -67,6 +67,8 @@ const Header = ({ mode, setMode }) => {
           <div className="headerRight">
             <div className="headerRight__loginForm">
               <Formik
+                validateOnChange={false}
+                validateOnBlur={false}
                 validationSchema={schema}
                 onSubmit={(values) => {
                   handleLoginSubmit(values);
