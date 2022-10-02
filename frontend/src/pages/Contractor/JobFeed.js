@@ -1,5 +1,11 @@
+import ContractorHeader from '../../components/Contractor/ContractorHeader/ContractorHeader';
+
 const JobFeed = () => {
-  return <>Job Feed</>;
+  return (
+    <div>
+      <ContractorHeader />
+    </div>
+  );
 };
 
 export default JobFeed;

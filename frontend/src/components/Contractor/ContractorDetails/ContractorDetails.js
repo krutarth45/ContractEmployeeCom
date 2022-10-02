@@ -26,6 +26,7 @@ const ContractorDetails = () => {
   const [currentCity, setCurrentCity] = useState([]);
   const [preferredCities, setPreferredCities] = useState([]);
   const [date, setDate] = useState(new Date());
+  const [resume, setResume] = useState(null);
   const ref = useRef();
   const ref2 = useRef();
   return (
@@ -231,7 +232,12 @@ const ContractorDetails = () => {
             <Col sm={12} md={6}>
               <Form.Group controlId="formFile" className="mb-3">
                 <Form.Label>Resume</Form.Label>
-                <Form.Control type="file" />
+                <Form.Control
+                  onChange={(e) => {
+                    setResume(e.target.files[0]);
+                  }}
+                  type="file"
+                />
               </Form.Group>
             </Col>
           </Row>
