@@ -152,6 +152,8 @@ const HomeBody = ({ mode, setMode }) => {
             </div>
             <div className="mt-3">
               <Formik
+                validateOnChange={false}
+                validateOnBlur={false}
                 validationSchema={schema}
                 onSubmit={(values) => {
                   handleRegisterSubmit(values);
