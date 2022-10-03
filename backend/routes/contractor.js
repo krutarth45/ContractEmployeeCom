@@ -7,6 +7,8 @@ const Contractor = require('../models/Contractor');
 const Token = require('../models/Token');
 const sendEmail = require('../utils/sendEmail');
 const { auth } = require('../middlewares/auth');
+const cloudinary = require('../utils/cloudinary');
+const upload = require('../utils/multer');
 const crypto = require('crypto');
 
 // Contractor Registration
@@ -128,5 +130,15 @@ router.post('/login', async (req, res) => {
     return res.status(200).send({ message: 'detailsDown' });
   }
   res.status(200).send({ message: 'detailsUp' });
+});
+// pdf upload
+router.post('/resumeupload', upload.single('resume'), async (req, res) => {
+  try {
+    const result = await cloudinary.uploader.upload(req.file.path);
+    res.status(200).send({ secure_url: result.secure_url });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ message: 'Internal Server Error.' });
+  }
 });
 module.exports = router;

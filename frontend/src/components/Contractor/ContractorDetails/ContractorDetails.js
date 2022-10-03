@@ -11,6 +11,7 @@ import {
   skills,
   totalExp
 } from '../../../data';
+import { uploadResume } from '../../../functions/contractor';
 import './ContractorDetails.css';
 
 const ContractorDetailsB = () => {
@@ -28,6 +29,7 @@ const ContractorDetailsB = () => {
   const [preferredCities, setPreferredCities] = useState([]);
   const [bday, setBday] = useState(new Date());
   const [resume, setResume] = useState(null);
+  const [resumeLink, setResumeLink] = useState('');
   const [error, setError] = useState('');
   const ref = useRef();
   const ref2 = useRef();
@@ -280,12 +282,32 @@ const ContractorDetailsB = () => {
                   <Form.Label>Resume</Form.Label>
                   <Form.Control
                     required
-                    onChange={(e) => {
+                    name="resume"
+                    onChange={async (e) => {
                       setResume(e.target.files[0]);
+                      let formData = new FormData();
+                      formData.append('resume', e.target.files[0]);
+                      let secure_url = await uploadResume(formData);
+                      setResumeLink(secure_url);
                     }}
                     type="file"
                   />
                 </Form.Group>
+                {resume && resumeLink && (
+                  <a
+                    href={resumeLink}
+                    className="btn px-2 py-1 mb-4"
+                    role="button"
+                    style={{
+                      backgroundColor: '#3b5998',
+                      color: 'white',
+                      fontWeight: '500'
+                    }}
+                    target="_blank"
+                  >
+                    View Resume
+                  </a>
+                )}
               </Col>
             </Row>
             <div className="my-2 text-center">
