@@ -121,6 +121,21 @@ const ContractorDetails = () => {
             </Col>
             <Col sm={12} md={6}>
               <Form.Group>
+                <Form.Label>Notice Period: </Form.Label>
+                <Typeahead
+                  id="basic-typeahead-notice-period"
+                  labelKey="noticePeriod"
+                  onChange={setNoticePeriod}
+                  options={notice}
+                  placeholder="Notice Period"
+                  selected={noticePeriod}
+                />
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row className="mt-2">
+            <Col sm={12} md={6}>
+              <Form.Group>
                 <Form.Label>Current Monthly Salary: </Form.Label>
                 <div className="d-flex align-items-center">
                   <Typeahead
@@ -143,11 +158,9 @@ const ContractorDetails = () => {
                 </div>
               </Form.Group>
             </Col>
-          </Row>
-          <Row className="mt-2">
             <Col sm={12} md={6}>
               <Form.Group>
-                <Form.Label>Current Monthly Salary: </Form.Label>
+                <Form.Label>Expected Monthly Salary: </Form.Label>
                 <div className="d-flex align-items-center">
                   <Typeahead
                     id="basic-typeahead-exp-month-salary"
@@ -167,19 +180,6 @@ const ContractorDetails = () => {
                     selected={expMonCurr}
                   />
                 </div>
-              </Form.Group>
-            </Col>
-            <Col sm={12} md={6}>
-              <Form.Group>
-                <Form.Label>Notice Period: </Form.Label>
-                <Typeahead
-                  id="basic-typeahead-notice-period"
-                  labelKey="noticePeriod"
-                  onChange={setNoticePeriod}
-                  options={notice}
-                  placeholder="Notice Period"
-                  selected={noticePeriod}
-                />
               </Form.Group>
             </Col>
           </Row>
