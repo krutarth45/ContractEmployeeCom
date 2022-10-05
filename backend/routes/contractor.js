@@ -8,7 +8,7 @@ const Token = require('../models/TokenContractor');
 const sendEmail = require('../utils/sendEmail');
 const { authContractor } = require('../middlewares/authContractor');
 const cloudinary = require('../utils/cloudinary');
-const upload = require('../utils/multer');
+const { uploadFile } = require('../utils/multer');
 const crypto = require('crypto');
 
 // Contractor Registration
@@ -132,7 +132,7 @@ router.post('/login', async (req, res) => {
   res.status(200).send({ message: 'detailsUp' });
 });
 // pdf upload
-router.post('/resumeupload', upload.single('resume'), async (req, res) => {
+router.post('/resumeupload', uploadFile.single('resume'), async (req, res) => {
   try {
     const result = await cloudinary.uploader.upload(req.file.path);
     res.status(200).send({ secure_url: result.secure_url });

@@ -31,6 +31,7 @@ const ContractorDetailsB = () => {
   const [resume, setResume] = useState(null);
   const [resumeLink, setResumeLink] = useState('');
   const [error, setError] = useState('');
+  const [error2, setError2] = useState('');
   const ref = useRef();
   const ref2 = useRef();
   useEffect(() => {
@@ -284,15 +285,20 @@ const ContractorDetailsB = () => {
                     required
                     name="resume"
                     onChange={async (e) => {
+                      setError2('');
                       setResume(e.target.files[0]);
                       let formData = new FormData();
                       formData.append('resume', e.target.files[0]);
                       let secure_url = await uploadResume(formData);
+                      if (secure_url === undefined) {
+                        return setError2('Only PDF format is supported');
+                      }
                       setResumeLink(secure_url);
                     }}
                     type="file"
                   />
                 </Form.Group>
+                {error2 && <p className="text-danger">{error2}</p>}
                 {resume && resumeLink && (
                   <a
                     href={resumeLink}

@@ -7,7 +7,7 @@ const Employer = require('../models/Employer');
 const Token = require('../models/TokenEmployer');
 const sendEmail = require('../utils/sendEmail');
 const cloudinary = require('../utils/cloudinary');
-const upload = require('../utils/multer');
+const { uploadImg } = require('../utils/multer');
 const crypto = require('crypto');
 
 router.post('/register', async (req, res) => {
@@ -128,6 +128,15 @@ router.post('/login', async (req, res) => {
     }
     res.status(200).send({ message: 'detailsUp' });
   } catch (error) {
+    res.status(500).send({ message: 'Internal Server Error.' });
+  }
+});
+router.post('/uploadlogo', uploadImg.single('logo'), async (req, res) => {
+  try {
+    const result = await cloudinary.uploader.upload(req.file.path);
+    res.status(200).send({ secure_url: result.secure_url });
+  } catch (error) {
+    console.log(error);
     res.status(500).send({ message: 'Internal Server Error.' });
   }
 });

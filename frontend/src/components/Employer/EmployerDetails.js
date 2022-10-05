@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import { uploadLogo } from '../../functions/employer';
 import '../Contractor/ContractorDetails/ContractorDetails.css';
 const EmployerDetails = () => {
   const [companyName, setCompanyName] = useState('');
@@ -10,6 +11,7 @@ const EmployerDetails = () => {
   const [companyLogo, setCompanyLogo] = useState(null);
   const [companyLogoLink, setCompanyLogoLink] = useState(null);
   const [error, setError] = useState('');
+  const [error2, setError2] = useState('');
 
   return (
     <div>
@@ -104,20 +106,22 @@ const EmployerDetails = () => {
                   <Form.Label>Resume</Form.Label>
                   <Form.Control
                     required
-                    name="resume"
-                    onChange={(e) => {
+                    name="logo"
+                    onChange={async (e) => {
+                      setError2('');
                       setCompanyLogo(e.target.files[0]);
+                      let formData = new FormData();
+                      formData.append('logo', e.target.files[0]);
+                      let secure_url = await uploadLogo(formData);
+                      if (secure_url === undefined) {
+                        return setError2('Only Images are supported');
+                      }
+                      setCompanyLogoLink(secure_url);
                     }}
-                    // onChange={async (e) => {
-                    //   setResume(e.target.files[0]);
-                    //   let formData = new FormData();
-                    //   formData.append('resume', e.target.files[0]);
-                    //   let secure_url = await uploadResume(formData);
-                    //   setResumeLink(secure_url);
-                    // }}
                     type="file"
                   />
                 </Form.Group>
+                {error2 && <p className="text-danger">{error2}</p>}
                 {companyLogo && companyLogoLink && (
                   <a
                     href={companyLogoLink}

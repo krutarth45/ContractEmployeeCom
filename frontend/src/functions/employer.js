@@ -1,8 +1,8 @@
 import axios from 'axios';
-export const uploadResume = async (formData) => {
+export const uploadLogo = async (formData) => {
   try {
     const { data } = await axios.post(
-      'http://localhost:8000/contractor/resumeupload',
+      'http://localhost:8000/employer/uploadlogo',
       formData,
       {
         headers: {
