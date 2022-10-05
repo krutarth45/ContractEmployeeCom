@@ -111,16 +111,16 @@ router.post('/login', async (req, res) => {
         contractorId: user._id,
         token: crypto.randomBytes(32).toString('hex')
       }).save();
-      const url = `${config.get('base_url')}contractor/${user._id}/verify/${
-        regToken.token
-      }`;
-      await sendEmail(
-        user.email,
-        'Verify your Contract Employee Account Email',
-        user.firstName,
-        url
-      );
     }
+    const url = `${config.get('base_url')}contractor/${user._id}/verify/${
+      regToken.token
+    }`;
+    await sendEmail(
+      user.email,
+      'Verify your Contract Employee Account Email',
+      user.firstName,
+      url
+    );
     return res.status(400).send({
       message: 'An Email is sent to your account please verify to proceed.'
     });

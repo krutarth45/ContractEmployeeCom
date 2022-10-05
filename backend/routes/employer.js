@@ -108,22 +108,22 @@ router.post('/login', async (req, res) => {
           employerId: user._id,
           token: crypto.randomBytes(32).toString('hex')
         }).save();
-        const url = `${config.get('base_url')}employer/${user._id}/verify/${
-          regToken.token
-        }`;
-        await sendEmail(
-          user.email,
-          'Verify your Contract Employee Account Email',
-          user.firstName,
-          url
-        );
       }
+      const url = `${config.get('base_url')}employer/${user._id}/verify/${
+        regToken.token
+      }`;
+      await sendEmail(
+        user.email,
+        'Verify your Contract Employee Account Email',
+        user.firstName,
+        url
+      );
       return res.status(400).send({
         message: 'An Email is sent to your account please verify to proceed.'
       });
     }
     // 4. Check details. if details are there send message detailsUp else detailsDown
-    if (user.companyName) {
+    if (user.companyName === undefined) {
       return res.status(200).send({ message: 'detailsDown' });
     }
     res.status(200).send({ message: 'detailsUp' });

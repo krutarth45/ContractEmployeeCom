@@ -3,14 +3,14 @@ import axios from 'axios';
 import { useEffect, useState, Fragment } from 'react';
 
 import './index.css';
-const EmailVerify = () => {
+const EmailVerifyTemp = () => {
   const [validUrl, setValidUrl] = useState(true);
   const param = useParams();
 
   useEffect(() => {
     const verifyEmailUrl = async () => {
       try {
-        const url = `http://localhost:8000/contractor/${param.id}/verify/${param.token}`;
+        const url = `http://localhost:8000/employer/${param.id}/verify/${param.token}`;
         await axios.get(url);
         setValidUrl(true);
       } catch (error) {
@@ -42,4 +42,4 @@ const EmailVerify = () => {
   );
 };
 
-export default EmailVerify;
+export default EmailVerifyTemp;
