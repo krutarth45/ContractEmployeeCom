@@ -13,6 +13,7 @@ import UserDetails from './pages/Contractor/UserDetails';
 import JobFeed from './pages/Contractor/JobFeed';
 import EmailVerifyTemp from './components/HomePages/EmailVerifyTemp';
 import CompanyDetails from './pages/Employer/CompanyDetails';
+import UserList from './pages/Employer/UserList';
 
 const App = () => {
   const [mode, setMode] = useState(true);
@@ -29,6 +30,7 @@ const App = () => {
       <Route path="/contractor/job-feed" element={<JobFeed />} />
       <Route path="/contractor/user-details" element={<UserDetails />} />
       <Route path="/employer/employer-details" element={<CompanyDetails />} />
+      <Route path="/employer/users-list" element={<UserList />} />
     </Routes>
   );
 };

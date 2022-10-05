@@ -9,6 +9,7 @@ const sendEmail = require('../utils/sendEmail');
 const cloudinary = require('../utils/cloudinary');
 const { uploadImg } = require('../utils/multer');
 const crypto = require('crypto');
+const Contractor = require('../models/Contractor');
 
 router.post('/register', async (req, res) => {
   const { firstName, lastName, email, contact, password } = req.body;
@@ -137,6 +138,17 @@ router.post('/uploadlogo', uploadImg.single('logo'), async (req, res) => {
     res.status(200).send({ secure_url: result.secure_url });
   } catch (error) {
     console.log(error);
+    res.status(500).send({ message: 'Internal Server Error.' });
+  }
+});
+router.get('/users-list', async (req, res) => {
+  try {
+    const users = await Contractor.find();
+    if (users) {
+      return res.status(200).send(users);
+    }
+    res.status(404).send({ message: 'Users not found' });
+  } catch (error) {
     res.status(500).send({ message: 'Internal Server Error.' });
   }
 });
