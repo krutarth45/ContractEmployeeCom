@@ -1,11 +1,11 @@
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const Contractor = require('../models/Contractor');
-const Token = require('../models/Token');
+const Token = require('../models/TokenContractor');
 const crypto = require('crypto');
 const sendEmail = require('../utils/sendEmail');
 
-exports.auth = async function (req, res, next) {
+exports.authContractor = async function (req, res, next) {
   const token = req.header('x-auth-token');
   if (!token) {
     return res.status(401).json({ error: 'No token, Authorization Denied' });

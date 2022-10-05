@@ -28,6 +28,27 @@ const employerSchema = new mongoose.Schema({
   postedJobs: {
     type: ObjectId,
     ref: 'Job'
+  },
+  email: {
+    type: String,
+    trim: true,
+    unique: [true, 'User Already Exists'],
+    lowercase: true
+  },
+  password: {
+    type: String
+  },
+  verified: {
+    type: Boolean,
+    default: false
+  },
+  contact: {
+    type: Number,
+    trim: true,
+    unique: [true, 'Number Already Exists.']
+  },
+  token: {
+    type: String
   }
 });
 
