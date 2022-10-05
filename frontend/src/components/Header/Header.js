@@ -20,13 +20,24 @@ const Header = ({ mode, setMode }) => {
   });
   const handleLoginSubmit = async (values) => {
     try {
-      const url = 'http://localhost:8000/contractor/login';
-      const { data } = await axios.post(url, values);
-      setError('');
-      if (data.message === 'detailsUp') {
-        navigate('/contractor/job-feed');
-      } else if (data.message === 'detailsDown') {
-        navigate('/contractor/user-details');
+      if (mode) {
+        const url = 'http://localhost:8000/contractor/login';
+        const { data } = await axios.post(url, values);
+        setError('');
+        if (data.message === 'detailsUp') {
+          navigate('/contractor/job-feed');
+        } else if (data.message === 'detailsDown') {
+          navigate('/contractor/user-details');
+        }
+      } else {
+        const url = 'http://localhost:8000/employer/login';
+        const { data } = await axios.post(url, values);
+        setError('');
+        if (data.message === 'detailsUp') {
+          navigate('/employer/contractor-feed');
+        } else if (data.message === 'detailsDown') {
+          navigate('/employer/employer-details');
+        }
       }
     } catch (error) {
       if (

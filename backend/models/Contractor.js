@@ -59,17 +59,9 @@ const ContractorSchema = new mongoose.Schema({
   curSalCurrency: {
     type: String
   },
-  bYear: {
-    type: Number,
-    trim: true
-  },
-  bMonth: {
-    type: Number,
-    trim: true
-  },
-  bDay: {
-    type: Number,
-    trim: true
+  bday: {
+    type: Date,
+    default: Date.now
   },
   prefferedLocation: {
     type: [String],
