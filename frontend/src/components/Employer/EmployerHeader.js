@@ -43,7 +43,7 @@ const EmployerHeader = () => {
                 Jobs
               </Button>
             </Link>
-            <Link to="/employer/company-details">
+            <Link to="/employer/employer-details">
               <Button className="contractor-header-button" type="button">
                 Profile
               </Button>
