@@ -7,7 +7,6 @@ app.use(cors());
 connectDB();
 // Init Middleware
 app.use(express.json({ extended: false }));
-app.get('/', (req, res) => res.send('API running'));
 const PORT = process.env.PORT || 8000;
 app.use('/contractor', require('./routes/contractor'));
 app.use('/employer', require('./routes/employer'));
