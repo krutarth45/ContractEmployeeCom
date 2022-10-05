@@ -15,3 +15,14 @@ export const uploadLogo = async (formData) => {
     return error.response.data.message;
   }
 };
+export const getUsersList = async () => {
+  try {
+    const { data } = await axios.get(
+      'http://localhost:8000/employer/users-list',
+      {}
+    );
+    return data;
+  } catch (error) {
+    return error.response.data.message;
+  }
+};

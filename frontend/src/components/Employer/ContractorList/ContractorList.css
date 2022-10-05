@@ -1,0 +1,7 @@
+.userDiv {
+  background: #fff;
+  border-radius: 20px;
+  -webkit-box-shadow: 4px 6px 28px -10px rgba(0, 0, 0, 0.85);
+  -moz-box-shadow: 4px 6px 28px -10px rgba(0, 0, 0, 0.85);
+  box-shadow: 4px 6px 28px -10px rgba(0, 0, 0, 0.85);
+}
