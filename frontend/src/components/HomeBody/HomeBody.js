@@ -39,7 +39,9 @@ const HomeBody = ({ mode, setMode }) => {
   });
   const handleRegisterSubmit = async (values) => {
     try {
-      const url = 'http://localhost:8000/contractor/register';
+      const url = mode
+        ? 'http://localhost:8000/contractor/register'
+        : 'http://localhost:8000/employer/register';
       const { data } = await axios.post(url, values);
       setError('');
       setSuccess(data.message);
