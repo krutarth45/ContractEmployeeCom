@@ -16,10 +16,9 @@ import CompanyDetails from './pages/Employer/CompanyDetails';
 import UserList from './pages/Employer/UserList';
 
 const App = () => {
-  const [mode, setMode] = useState(true);
   return (
     <Routes>
-      <Route path="/" element={<Home mode={mode} setMode={setMode} />} exact />
+      <Route path="/" element={<Home />} exact />
       <Route path="/complaint" element={<Complaints />} />
       <Route path="/grievance" element={<Grievance />} />
       <Route path="/fraud-alert" element={<Fraud />} />

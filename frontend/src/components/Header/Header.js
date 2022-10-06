@@ -7,8 +7,11 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Header.css';
 import { useMediaQuery } from 'react-responsive';
+import { useDispatch, useSelector } from 'react-redux';
 
-const Header = ({ mode, setMode }) => {
+const Header = () => {
+  const { mode } = useSelector((state) => ({ ...state }));
+  const dispatch = useDispatch();
   const large = useMediaQuery({
     query: '(max-width: 992px)'
   });
@@ -147,7 +150,7 @@ const Header = ({ mode, setMode }) => {
               className="headerRight__modeShift"
               style={{ cursor: 'pointer' }}
               onClick={() => {
-                setMode((prev) => !prev);
+                dispatch({ type: 'REVERSE', payload: !mode });
               }}
             >
               {mode ? 'Go To Employer Sign In' : 'Go To Contractor Sign In'}
