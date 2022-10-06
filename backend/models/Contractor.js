@@ -75,8 +75,8 @@ const ContractorSchema = new mongoose.Schema({
     type: String,
     trim: true
   },
-  resume: {
-    type: Buffer
+  resumeLink: {
+    type: String
   },
   appliedTo: {
     type: ObjectId,
