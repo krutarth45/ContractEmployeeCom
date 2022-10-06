@@ -2,9 +2,14 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { Card, Col, Container, Row } from 'react-bootstrap';
 import { getUsersList } from '../../../functions/employer';
+import { useMediaQuery } from 'react-responsive';
 import './ContractorList.css';
+import { useIsRTL } from 'react-bootstrap/esm/ThemeProvider';
 const ContractorList = () => {
   // Grab firstName, lastName, companyName, jobType, curMonSal, curMonCurr, expMonSal, expMonCurr, currentCity, prefferedCities, noticePeriod
+  const large = useMediaQuery({
+    query: '(max-width: 992px)'
+  });
   const [data, setData] = useState([]);
   useEffect(async () => {
     const result = await getUsersList();
@@ -13,22 +18,36 @@ const ContractorList = () => {
   return (
     <div>
       <Container>
-        <Row className="mt-4">
+        <Row className="mt-3">
           {data &&
             data.map((user, index) => (
-              <Col md={12} key={index}>
-                <Card className="userDiv" style={{ width: '18rem' }}>
+              <Col className="mb-3" key={index}>
+                <Card
+                  className={`${large ? 'userDiv mx-auto' : 'userDiv'}`}
+                  style={{ width: '18rem' }}
+                >
                   <Card.Body>
-                    <Card.Title>{user.firstName}</Card.Title>
+                    <Card.Title>
+                      {user.firstName} {user.lastName}
+                    </Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">
-                      Card Subtitle
+                      {user.currentCompany} - {user.jobType}
                     </Card.Subtitle>
                     <Card.Text>
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
+                      Total Experience: {user.totalExperience}
                     </Card.Text>
-                    <Card.Link href="#">Card Link</Card.Link>
-                    <Card.Link href="#">Another Link</Card.Link>
+                    <Card.Text>
+                      Relevant Experience: {user.relevantExperience}
+                    </Card.Text>
+                    <Card.Text>
+                      Current Salary: {user.curMonSal} {user.curMonCurr}
+                    </Card.Text>
+                    <Card.Text>
+                      Expected Salary: {user.expMonSal} {user.expMonCurr}
+                    </Card.Text>
+                    <Card.Text>Notice Period: {user.noticePeriod}</Card.Text>
+                    <Card.Text>Current City: {user.currentCity}</Card.Text>
+                    <Card.Link href="#">Resume Link</Card.Link>
                   </Card.Body>
                 </Card>
               </Col>
