@@ -4,9 +4,7 @@ import { Card, Col, Container, Row } from 'react-bootstrap';
 import { getUsersList } from '../../../functions/employer';
 import { useMediaQuery } from 'react-responsive';
 import './ContractorList.css';
-import { useIsRTL } from 'react-bootstrap/esm/ThemeProvider';
 const ContractorList = () => {
-  // Grab firstName, lastName, companyName, jobType, curMonSal, curMonCurr, expMonSal, expMonCurr, currentCity, prefferedCities, noticePeriod
   const large = useMediaQuery({
     query: '(max-width: 992px)'
   });
