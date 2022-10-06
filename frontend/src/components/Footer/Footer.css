@@ -25,7 +25,7 @@
     text-align: center;
   }
 }
-@media (min-width: 1700px) {
+@media (min-width: 1600px) {
   .footerDiv {
     position: absolute;
     bottom: 0;
