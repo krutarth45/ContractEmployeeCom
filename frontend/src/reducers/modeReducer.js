@@ -9,6 +9,8 @@ export function modeReducer(
       return true;
     case 'EMPLOYER':
       return false;
+    case 'REVERSE':
+      return action.payload;
     default:
       return state;
   }
