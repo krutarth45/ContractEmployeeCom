@@ -27,6 +27,7 @@ const Header = () => {
         const url = 'http://localhost:8000/contractor/login';
         const { data } = await axios.post(url, values);
         setError('');
+        dispatch({ type: 'LOGIN', payload: data.user });
         if (data.message === 'detailsUp') {
           navigate('/contractor/job-feed');
         } else if (data.message === 'detailsDown') {
@@ -36,6 +37,7 @@ const Header = () => {
         const url = 'http://localhost:8000/employer/login';
         const { data } = await axios.post(url, values);
         setError('');
+        dispatch({ type: 'LOGIN', payload: data.user });
         if (data.message === 'detailsUp') {
           navigate('/employer/contractor-feed');
         } else if (data.message === 'detailsDown') {
