@@ -127,9 +127,9 @@ router.post('/login', async (req, res) => {
     if (user.companyName === undefined) {
       return res.status(200).send({ message: 'detailsDown' });
     }
-    res.status(200).send({ message: 'detailsUp' });
+    res.status(200).send({ user, message: 'detailsUp' });
   } catch (error) {
-    res.status(500).send({ message: 'Internal Server Error.' });
+    res.status(500).send({ user, message: 'Internal Server Error.' });
   }
 });
 router.post('/uploadlogo', uploadImg.single('logo'), async (req, res) => {

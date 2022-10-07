@@ -127,9 +127,9 @@ router.post('/login', async (req, res) => {
   }
   // 4. Check details. if details are there send message detailsUp else detailsDown
   if (user.skills.length === 0) {
-    return res.status(200).send({ message: 'detailsDown' });
+    return res.status(200).send({ user, message: 'detailsDown' });
   }
-  res.status(200).send({ message: 'detailsUp' });
+  res.status(200).send({ user, message: 'detailsUp' });
 });
 // pdf upload
 router.post('/resumeupload', uploadFile.single('resume'), async (req, res) => {
