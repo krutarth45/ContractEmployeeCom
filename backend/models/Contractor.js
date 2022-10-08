@@ -33,50 +33,64 @@ const ContractorSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
-  totalExperience: {
-    type: String
+  totalExpYear: {
+    type: [String],
+    default: []
   },
-  relevantExperience: {
-    type: String
+  relExpYear: {
+    type: [String],
+    default: []
   },
-  skills: {
+  skillInfo: {
     type: [String],
     default: []
   },
   jobType: {
-    type: String,
-    enum: ['Contract', 'Permanent']
+    type: [String],
+    default: []
   },
-  expSalVal: {
-    type: String
+  expMonSal: {
+    type: [String],
+    default: []
   },
-  expSalCurrency: {
-    type: String
+  expMonCurr: {
+    type: [String],
+    default: []
   },
-  curSalVal: {
-    type: String
+  curMonSal: {
+    type: [String],
+    default: []
   },
-  curSalCurrency: {
-    type: String
+  curMonCurr: {
+    type: [String],
+    default: []
   },
   bday: {
     type: Date,
     default: Date.now
   },
-  prefferedLocation: {
+  preferredCities: {
     type: [String],
     default: []
   },
-  currentCompany: {
+  companyName: {
     type: String,
     trim: true
   },
-  currentLocation: {
-    type: String,
-    trim: true
+  currentCity: {
+    type: [String],
+    default: []
+  },
+  noticePeriod: {
+    type: [String],
+    default: []
   },
   resumeLink: {
     type: String
+  },
+  userType: {
+    type: String,
+    default: 'contractor'
   },
   appliedTo: {
     type: ObjectId,

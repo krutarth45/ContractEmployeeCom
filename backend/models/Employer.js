@@ -55,6 +55,10 @@ const employerSchema = new mongoose.Schema({
     trim: true,
     unique: [true, 'Number Already Exists.']
   },
+  userType: {
+    type: String,
+    default: 'employer'
+  },
   token: {
     type: String
   }

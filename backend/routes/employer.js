@@ -125,11 +125,11 @@ router.post('/login', async (req, res) => {
     }
     // 4. Check details. if details are there send message detailsUp else detailsDown
     if (user.companyName === undefined) {
-      return res.status(200).send({ message: 'detailsDown' });
+      return res.status(200).send({ user, message: 'detailsDown' });
     }
     res.status(200).send({ user, message: 'detailsUp' });
   } catch (error) {
-    res.status(500).send({ user, message: 'Internal Server Error.' });
+    res.status(500).send({ message: 'Internal Server Error.' });
   }
 });
 router.post('/uploadlogo', uploadImg.single('logo'), async (req, res) => {

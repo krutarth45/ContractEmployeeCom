@@ -9,8 +9,40 @@ export function userReducer(
       return action.payload;
     case 'LOGOUT':
       return null;
-    case 'VERIFY':
-      return { ...state, verified: action.payload };
+    case 'UPDATE':
+      const {
+        totalExpYear,
+        relExpYear,
+        skillInfo,
+        companyName,
+        jobType,
+        curMonSal,
+        curMonCurr,
+        expMonSal,
+        expMonCurr,
+        noticePeriod,
+        currentCity,
+        preferredCities,
+        bday,
+        resumeLink
+      } = action.payload;
+      return {
+        ...state,
+        totalExpYear,
+        relExpYear,
+        skillInfo,
+        companyName,
+        jobType,
+        curMonSal,
+        curMonCurr,
+        expMonSal,
+        expMonCurr,
+        noticePeriod,
+        currentCity,
+        preferredCities,
+        bday,
+        resumeLink
+      };
     default:
       return state;
   }
