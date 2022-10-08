@@ -1,8 +1,11 @@
 import './ContractorHeader.css';
 import { Navbar, Nav, Button } from 'react-bootstrap';
+import Cookies from 'js-cookie';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const ContractorHeader = () => {
+  const dispatch = useDispatch();
   return (
     <Navbar
       collapseOnSelect
@@ -38,8 +41,17 @@ const ContractorHeader = () => {
                 Profile
               </Button>
             </Link>
-            <Link to="/logout">
-              <Button className="contractor-header-button" type="button">
+            <Link to="/">
+              <Button
+                className="contractor-header-button"
+                type="button"
+                onClick={() => {
+                  Cookies.set('user', '');
+                  dispatch({
+                    type: 'LOGOUT'
+                  });
+                }}
+              >
                 Logout
               </Button>
             </Link>
