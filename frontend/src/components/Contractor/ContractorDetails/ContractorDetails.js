@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { useRef, useState } from 'react';
+import Cookies from 'js-cookie';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 import {
@@ -13,32 +15,109 @@ import {
 } from '../../../data';
 import { uploadResume } from '../../../functions/contractor';
 import './ContractorDetails.css';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-const ContractorDetailsB = () => {
-  const [totalExpYear, setTotalExpYear] = useState([]);
-  const [relExpYear, setRelExpYear] = useState([]);
-  const [skillInfo, setSkillInfo] = useState([]);
-  const [companyName, setCompanyName] = useState('');
-  const [jobType, setJobType] = useState([]);
-  const [curMonSal, setCurMonSal] = useState([]);
-  const [curMonCurr, setCurMonCurr] = useState([]);
-  const [expMonSal, setExpMonSal] = useState([]);
-  const [expMonCurr, setExpMonCurr] = useState([]);
-  const [noticePeriod, setNoticePeriod] = useState([]);
-  const [currentCity, setCurrentCity] = useState([]);
-  const [preferredCities, setPreferredCities] = useState([]);
-  const [bday, setBday] = useState(new Date());
+const ContractorDetails = () => {
+  const { user } = useSelector((state) => ({ ...state }));
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [totalExpYear, setTotalExpYear] = useState(
+    user.totalExpYear.length !== 0 ? user.totalExpYear : []
+  );
+  const [relExpYear, setRelExpYear] = useState(
+    user.relExpYear.length !== 0 ? user.relExpYear : []
+  );
+  const [skillInfo, setSkillInfo] = useState(
+    user.skillInfo.length !== 0 ? user.skillInfo : []
+  );
+  const [companyName, setCompanyName] = useState(
+    user.companyName ? user.companyName : ''
+  );
+  const [jobType, setJobType] = useState(
+    user.jobType.length !== 0 ? user.jobType : []
+  );
+  const [curMonSal, setCurMonSal] = useState(
+    user.curMonSal.length !== 0 ? user.curMonSal : []
+  );
+  const [curMonCurr, setCurMonCurr] = useState(
+    user.curMonCurr.length !== 0 ? user.curMonCurr : []
+  );
+  const [expMonSal, setExpMonSal] = useState(
+    user.expMonSal.length !== 0 ? user.expMonSal : []
+  );
+  const [expMonCurr, setExpMonCurr] = useState(
+    user.expMonCurr.length !== 0 ? user.expMonCurr : []
+  );
+  const [noticePeriod, setNoticePeriod] = useState(
+    user.noticePeriod.length !== 0 ? user.noticePeriod : []
+  );
+  const [currentCity, setCurrentCity] = useState(
+    user.currentCity.length !== 0 ? user.currentCity : []
+  );
+  const [preferredCities, setPreferredCities] = useState(
+    user.preferredCities.length !== 0 ? user.preferredCities : []
+  );
+  const [bday, setBday] = useState(user.bday);
   const [resume, setResume] = useState(null);
-  const [resumeLink, setResumeLink] = useState('');
+  const [resumeLink, setResumeLink] = useState(
+    user.resumeLink ? user.resumeLink : ''
+  );
   const [error, setError] = useState('');
+  const [error1, setError1] = useState('');
   const [error2, setError2] = useState('');
   const ref = useRef();
   const ref2 = useRef();
+  const handleContractorDetails = async (
+    totalExpYear,
+    relExpYear,
+    skillInfo,
+    companyName,
+    jobType,
+    curMonSal,
+    curMonCurr,
+    expMonSal,
+    expMonCurr,
+    noticePeriod,
+    currentCity,
+    preferredCities,
+    bday,
+    resumeLink
+  ) => {
+    try {
+      const { data } = await axios.post(
+        `http://localhost:8000/contractor/updatecontractordetails`,
+        {
+          totalExpYear,
+          relExpYear,
+          skillInfo,
+          companyName,
+          jobType,
+          curMonSal,
+          curMonCurr,
+          expMonSal,
+          expMonCurr,
+          noticePeriod,
+          currentCity,
+          preferredCities,
+          bday,
+          resumeLink
+        },
+        {
+          headers: { 'x-auth-token': user.token }
+        }
+      );
+      console.log(data.message);
+      navigate('/contractor/job-feed');
+    } catch (error) {
+      setError(error.response.data.message);
+    }
+  };
   useEffect(() => {
     setTimeout(() => {
-      setError('');
+      setError1('');
     }, 3000);
-  }, [error]);
+  }, [error1]);
   return (
     <div>
       <Container>
@@ -72,10 +151,64 @@ const ContractorDetailsB = () => {
                 noticePeriod.length === 0 ||
                 currentCity.length === 0
               ) {
-                return setError('Please select Value from the Dropdown Menu');
+                return setError1('Please select Value from the Dropdown Menu');
               }
               // call the handle function here
-              console.log('Success');
+              dispatch({
+                type: 'UPDATE',
+                payload: {
+                  totalExpYear,
+                  relExpYear,
+                  skillInfo,
+                  companyName,
+                  jobType,
+                  curMonSal,
+                  curMonCurr,
+                  expMonSal,
+                  expMonCurr,
+                  noticePeriod,
+                  currentCity,
+                  preferredCities,
+                  bday,
+                  resumeLink
+                }
+              });
+              Cookies.set(
+                'user',
+                JSON.stringify({
+                  ...user,
+                  totalExpYear,
+                  relExpYear,
+                  skillInfo,
+                  companyName,
+                  jobType,
+                  curMonSal,
+                  curMonCurr,
+                  expMonSal,
+                  expMonCurr,
+                  noticePeriod,
+                  currentCity,
+                  preferredCities,
+                  bday,
+                  resumeLink
+                })
+              );
+              handleContractorDetails(
+                totalExpYear,
+                relExpYear,
+                skillInfo,
+                companyName,
+                jobType,
+                curMonSal,
+                curMonCurr,
+                expMonSal,
+                expMonCurr,
+                noticePeriod,
+                currentCity,
+                preferredCities,
+                bday,
+                resumeLink
+              );
             }}
           >
             <Row>
@@ -271,8 +404,7 @@ const ContractorDetailsB = () => {
                   <Form.Control
                     required
                     type="date"
-                    name="bDay"
-                    placeholder="Birthday"
+                    name="bday"
                     value={bday}
                     onChange={(e) => setBday(e.target.value)}
                   />
@@ -299,7 +431,7 @@ const ContractorDetailsB = () => {
                   />
                 </Form.Group>
                 {error2 && <p className="text-danger">{error2}</p>}
-                {resume && resumeLink && (
+                {resumeLink && (
                   <a
                     href={resumeLink}
                     className="btn px-2 py-1 mb-4"
@@ -317,6 +449,7 @@ const ContractorDetailsB = () => {
               </Col>
             </Row>
             <div className="my-2 text-center">
+              {error1 && <p className="text-danger">{error1}</p>}
               {error && <p className="text-danger">{error}</p>}
               <Button
                 className="btn px-3 py-1"
@@ -333,4 +466,4 @@ const ContractorDetailsB = () => {
   );
 };
 
-export default ContractorDetailsB;
+export default ContractorDetails;

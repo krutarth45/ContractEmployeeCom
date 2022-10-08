@@ -83,53 +83,57 @@ router.get('/:id/verify/:token', async (req, res) => {
 });
 // Login for Contractor
 router.post('/login', async (req, res) => {
-  // 1. Check password.
-  let user = await Contractor.findOne({ email: req.body.email });
-  if (!user) {
-    return res.status(400).send({ message: 'Invalid Credentials' });
-  }
-  const isValid = await bcrypt.compare(req.body.password, user.password);
-  if (!isValid) {
-    return res.status(400).send({ message: 'Invalid Credentials' });
-  }
-  // 2. Renew Token.
-  const payload = {
-    user: {
-      id: user._id.toString()
+  try {
+    // 1. Check password.
+    let user = await Contractor.findOne({ email: req.body.email });
+    if (!user) {
+      return res.status(400).send({ message: 'Invalid Credentials' });
     }
-  };
-  jwt.sign(payload, config.get('jwtSecret'), (err, decoded) => {
-    if (err) throw err;
-    user.token = decoded;
-  });
-  user = await user.save();
-  // 3. Check if Email is verified or not.
-  if (!user.verified) {
-    let regToken = await Token.findOne({ contractorId: user._id });
-    if (!regToken) {
-      regToken = await new Token({
-        contractorId: user._id,
-        token: crypto.randomBytes(32).toString('hex')
-      }).save();
+    const isValid = await bcrypt.compare(req.body.password, user.password);
+    if (!isValid) {
+      return res.status(400).send({ message: 'Invalid Credentials' });
     }
-    const url = `${config.get('base_url')}contractor/${user._id}/verify/${
-      regToken.token
-    }`;
-    await sendEmail(
-      user.email,
-      'Verify your Contract Employee Account Email',
-      user.firstName,
-      url
-    );
-    return res.status(400).send({
-      message: 'An Email is sent to your account please verify to proceed.'
+    // 2. Renew Token.
+    const payload = {
+      user: {
+        id: user._id.toString()
+      }
+    };
+    jwt.sign(payload, config.get('jwtSecret'), (err, decoded) => {
+      if (err) throw err;
+      user.token = decoded;
     });
+    user = await user.save();
+    // 3. Check if Email is verified or not.
+    if (!user.verified) {
+      let regToken = await Token.findOne({ contractorId: user._id });
+      if (!regToken) {
+        regToken = await new Token({
+          contractorId: user._id,
+          token: crypto.randomBytes(32).toString('hex')
+        }).save();
+      }
+      const url = `${config.get('base_url')}contractor/${user._id}/verify/${
+        regToken.token
+      }`;
+      await sendEmail(
+        user.email,
+        'Verify your Contract Employee Account Email',
+        user.firstName,
+        url
+      );
+      return res.status(400).send({
+        message: 'An Email is sent to your account please verify to proceed.'
+      });
+    }
+    // 4. Check details. if details are there send message detailsUp else detailsDown
+    if (user.skillInfo.length === 0) {
+      return res.status(200).send({ user, message: 'detailsDown' });
+    }
+    res.status(200).send({ user, message: 'detailsUp' });
+  } catch (error) {
+    res.status(500).send({ message: 'Internal Server Error.' });
   }
-  // 4. Check details. if details are there send message detailsUp else detailsDown
-  if (user.skills.length === 0) {
-    return res.status(200).send({ user, message: 'detailsDown' });
-  }
-  res.status(200).send({ user, message: 'detailsUp' });
 });
 // pdf upload
 router.post('/resumeupload', uploadFile.single('resume'), async (req, res) => {
@@ -138,6 +142,51 @@ router.post('/resumeupload', uploadFile.single('resume'), async (req, res) => {
     res.status(200).send({ secure_url: result.secure_url });
   } catch (error) {
     console.log(error);
+    res.status(500).send({ message: 'Internal Server Error.' });
+  }
+});
+// update contractor details
+router.post('/updatecontractordetails', authContractor, async (req, res) => {
+  try {
+    const {
+      totalExpYear,
+      relExpYear,
+      skillInfo,
+      companyName,
+      jobType,
+      curMonSal,
+      curMonCurr,
+      expMonSal,
+      expMonCurr,
+      noticePeriod,
+      currentCity,
+      preferredCities,
+      bday,
+      resumeLink
+    } = req.body;
+    await Contractor.updateOne(
+      { _id: req.user._id },
+      {
+        $set: {
+          totalExpYear,
+          relExpYear,
+          skillInfo,
+          companyName,
+          jobType,
+          curMonSal,
+          curMonCurr,
+          expMonSal,
+          expMonCurr,
+          noticePeriod,
+          currentCity,
+          preferredCities,
+          bday,
+          resumeLink
+        }
+      }
+    );
+    res.status(200).send({ message: 'Successfully updated user data' });
+  } catch (error) {
     res.status(500).send({ message: 'Internal Server Error.' });
   }
 });

@@ -1,4 +1,5 @@
 import { Navbar, Nav, Form, Button } from 'react-bootstrap';
+import Cookies from 'js-cookie';
 import React, { useState } from 'react';
 import * as yup from 'yup';
 import { Formik } from 'formik';
@@ -28,6 +29,7 @@ const Header = () => {
         const { data } = await axios.post(url, values);
         setError('');
         dispatch({ type: 'LOGIN', payload: data.user });
+        Cookies.set('user', JSON.stringify(data.user));
         if (data.message === 'detailsUp') {
           navigate('/contractor/job-feed');
         } else if (data.message === 'detailsDown') {
