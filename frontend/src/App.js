@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -14,22 +14,31 @@ import JobFeed from './pages/Contractor/JobFeed';
 import EmailVerifyTemp from './components/HomePages/EmailVerifyTemp';
 import CompanyDetails from './pages/Employer/CompanyDetails';
 import UserList from './pages/Employer/UserList';
+import NotLoggedInRoutes from './routes/NotLoggedInRoutes';
+import ContractorLoggedIn from './routes/ContractorLoggedIn';
+import EmployerLoggedIn from './routes/EmployerLoggedIn';
 
 const App = () => {
   return (
     <Routes>
-      <Route path="/" element={<Home />} exact />
+      <Route element={<ContractorLoggedIn />}>
+        <Route path="/contractor/job-feed" element={<JobFeed />} />
+        <Route path="/contractor/user-details" element={<UserDetails />} />
+      </Route>
+      <Route element={<EmployerLoggedIn />}>
+        <Route path="/employer/employer-details" element={<CompanyDetails />} />
+        <Route path="/employer/users-list" element={<UserList />} />
+      </Route>
+      <Route element={<NotLoggedInRoutes />}>
+        <Route path="/" element={<Home />} exact />
+      </Route>
+      <Route path="/contractor/:id/verify/:token" element={<EmailVerify />} />
+      <Route path="/employer/:id/verify/:token" element={<EmailVerifyTemp />} />
       <Route path="/complaint" element={<Complaints />} />
       <Route path="/grievance" element={<Grievance />} />
       <Route path="/fraud-alert" element={<Fraud />} />
       <Route path="/terms-and-condition" element={<Terms />} />
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-      <Route path="/contractor/:id/verify/:token" element={<EmailVerify />} />
-      <Route path="/employer/:id/verify/:token" element={<EmailVerifyTemp />} />
-      <Route path="/contractor/job-feed" element={<JobFeed />} />
-      <Route path="/contractor/user-details" element={<UserDetails />} />
-      <Route path="/employer/employer-details" element={<CompanyDetails />} />
-      <Route path="/employer/users-list" element={<UserList />} />
     </Routes>
   );
 };
