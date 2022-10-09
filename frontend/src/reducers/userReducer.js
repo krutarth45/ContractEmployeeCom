@@ -10,39 +10,59 @@ export function userReducer(
     case 'LOGOUT':
       return null;
     case 'UPDATE':
-      const {
-        totalExpYear,
-        relExpYear,
-        skillInfo,
-        companyName,
-        jobType,
-        curMonSal,
-        curMonCurr,
-        expMonSal,
-        expMonCurr,
-        noticePeriod,
-        currentCity,
-        preferredCities,
-        bday,
-        resumeLink
-      } = action.payload;
-      return {
-        ...state,
-        totalExpYear,
-        relExpYear,
-        skillInfo,
-        companyName,
-        jobType,
-        curMonSal,
-        curMonCurr,
-        expMonSal,
-        expMonCurr,
-        noticePeriod,
-        currentCity,
-        preferredCities,
-        bday,
-        resumeLink
-      };
+      if (action.payload.userType === 'contractor') {
+        const {
+          totalExpYear,
+          relExpYear,
+          skillInfo,
+          companyName,
+          jobType,
+          curMonSal,
+          curMonCurr,
+          expMonSal,
+          expMonCurr,
+          noticePeriod,
+          currentCity,
+          preferredCities,
+          bday,
+          resumeLink
+        } = action.payload;
+        return {
+          ...state,
+          totalExpYear,
+          relExpYear,
+          skillInfo,
+          companyName,
+          jobType,
+          curMonSal,
+          curMonCurr,
+          expMonSal,
+          expMonCurr,
+          noticePeriod,
+          currentCity,
+          preferredCities,
+          bday,
+          resumeLink
+        };
+      } else {
+        const {
+          companyName,
+          companyAddress,
+          recruiterName,
+          recruiterDesignation,
+          companyUrl,
+          companyLogoLink
+        } = action.payload;
+        return {
+          ...state,
+          companyName,
+          companyAddress,
+          recruiterName,
+          recruiterDesignation,
+          companyUrl,
+          companyLogoLink
+        };
+      }
     default:
       return state;
   }

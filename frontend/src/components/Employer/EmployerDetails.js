@@ -2,17 +2,65 @@ import { useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { uploadLogo } from '../../functions/employer';
 import '../Contractor/ContractorDetails/ContractorDetails.css';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import Cookies from 'js-cookie';
+import axios from 'axios';
 const EmployerDetails = () => {
-  const [companyName, setCompanyName] = useState('');
-  const [companyAddress, setCompanyAddress] = useState('');
-  const [recruiterName, setRecruiterName] = useState('');
-  const [recruiterDesignation, setRecruiterDesignation] = useState('');
-  const [companyUrl, setCompanyUrl] = useState('');
+  const { user } = useSelector((state) => ({ ...state }));
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [companyName, setCompanyName] = useState(
+    user.companyName ? user.companyName : ''
+  );
+  const [companyAddress, setCompanyAddress] = useState(
+    user.companyAddress ? user.companyAddress : ''
+  );
+  const [recruiterName, setRecruiterName] = useState(
+    user.recruiterName ? user.recruiterName : ''
+  );
+  const [recruiterDesignation, setRecruiterDesignation] = useState(
+    user.recruiterDesignation ? user.recruiterDesignation : ''
+  );
+  const [companyUrl, setCompanyUrl] = useState(
+    user.companyUrl ? user.companyUrl : ''
+  );
   const [companyLogo, setCompanyLogo] = useState(null);
-  const [companyLogoLink, setCompanyLogoLink] = useState(null);
+  const [companyLogoLink, setCompanyLogoLink] = useState(
+    user.companyLogoLink ? user.companyLogoLink : ''
+  );
+  const userType = user.userType;
   const [error, setError] = useState('');
   const [error2, setError2] = useState('');
-
+  const handleEmployerDetails = async (
+    companyName,
+    companyAddress,
+    recruiterName,
+    recruiterDesignation,
+    companyUrl,
+    companyLogoLink
+  ) => {
+    try {
+      const { data } = await axios.post(
+        `http://localhost:8000/employer/updateemployerdetails`,
+        {
+          companyName,
+          companyAddress,
+          recruiterName,
+          recruiterDesignation,
+          companyUrl,
+          companyLogoLink
+        },
+        {
+          headers: { 'x-auth-token': user.token }
+        }
+      );
+      console.log(data.message);
+      navigate('/employer/users-list');
+    } catch (error) {
+      setError(error.response.data.message);
+    }
+  };
   return (
     <div>
       <Container>
@@ -33,7 +81,38 @@ const EmployerDetails = () => {
           <Form
             onSubmit={(e) => {
               e.preventDefault();
-              console.log('Success');
+              dispatch({
+                type: 'UPDATE',
+                payload: {
+                  companyName,
+                  companyAddress,
+                  recruiterName,
+                  recruiterDesignation,
+                  companyUrl,
+                  companyLogoLink,
+                  userType
+                }
+              });
+              Cookies.set(
+                'user',
+                JSON.stringify({
+                  ...user,
+                  companyName,
+                  companyAddress,
+                  recruiterName,
+                  recruiterDesignation,
+                  companyUrl,
+                  companyLogoLink
+                })
+              );
+              handleEmployerDetails(
+                companyName,
+                companyAddress,
+                recruiterName,
+                recruiterDesignation,
+                companyUrl,
+                companyLogoLink
+              );
             }}
           >
             <Row className="mt-2">
@@ -140,7 +219,6 @@ const EmployerDetails = () => {
               </Col>
             </Row>
             <div className="my-2 text-center">
-              {error && <p className="text-danger">{error}</p>}
               <Button
                 className="btn px-3 py-1"
                 type="submit"

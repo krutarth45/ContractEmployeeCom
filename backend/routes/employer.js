@@ -10,6 +10,7 @@ const cloudinary = require('../utils/cloudinary');
 const { uploadImg } = require('../utils/multer');
 const crypto = require('crypto');
 const Contractor = require('../models/Contractor');
+const { authEmployer } = require('../middlewares/authEmployer');
 
 router.post('/register', async (req, res) => {
   const { firstName, lastName, email, contact, password } = req.body;
@@ -148,6 +149,34 @@ router.get('/users-list', async (req, res) => {
       return res.status(200).send(users);
     }
     res.status(404).send({ message: 'Users not found' });
+  } catch (error) {
+    res.status(500).send({ message: 'Internal Server Error.' });
+  }
+});
+router.post('/updateemployerdetails', authEmployer, async (req, res) => {
+  try {
+    const {
+      companyName,
+      companyAddress,
+      recruiterName,
+      recruiterDesignation,
+      companyUrl,
+      companyLogoLink
+    } = req.body;
+    await Employer.updateOne(
+      { _id: req.user._id },
+      {
+        $set: {
+          companyName,
+          companyAddress,
+          recruiterName,
+          recruiterDesignation,
+          companyUrl,
+          companyLogoLink
+        }
+      }
+    );
+    res.status(200).send({ message: 'Successfully updated user data' });
   } catch (error) {
     res.status(500).send({ message: 'Internal Server Error.' });
   }

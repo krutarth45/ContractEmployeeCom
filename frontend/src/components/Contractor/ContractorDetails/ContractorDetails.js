@@ -63,6 +63,7 @@ const ContractorDetails = () => {
   const [resumeLink, setResumeLink] = useState(
     user.resumeLink ? user.resumeLink : ''
   );
+  const userType = user.userType;
   const [error, setError] = useState('');
   const [error1, setError1] = useState('');
   const [error2, setError2] = useState('');
@@ -170,7 +171,8 @@ const ContractorDetails = () => {
                   currentCity,
                   preferredCities,
                   bday,
-                  resumeLink
+                  resumeLink,
+                  userType
                 }
               });
               Cookies.set(
