@@ -41,7 +41,7 @@ const Header = () => {
         setError('');
         dispatch({ type: 'LOGIN', payload: data.user });
         if (data.message === 'detailsUp') {
-          navigate('/employer/contractor-feed');
+          navigate('/employer/users-list');
         } else if (data.message === 'detailsDown') {
           navigate('/employer/employer-details');
         }

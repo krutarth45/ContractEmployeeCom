@@ -184,14 +184,14 @@ const EmployerDetails = () => {
                 <Form.Group controlId="formFile" className="mb-3">
                   <Form.Label>Resume</Form.Label>
                   <Form.Control
-                    required
+                    required={companyLogoLink ? false : true}
                     name="logo"
                     onChange={async (e) => {
                       setError2('');
                       setCompanyLogo(e.target.files[0]);
                       let formData = new FormData();
                       formData.append('logo', e.target.files[0]);
-                      let secure_url = await uploadLogo(formData);
+                      let secure_url = await uploadLogo(formData, user.token);
                       if (secure_url === undefined) {
                         return setError2('Only Images are supported');
                       }
@@ -201,7 +201,7 @@ const EmployerDetails = () => {
                   />
                 </Form.Group>
                 {error2 && <p className="text-danger">{error2}</p>}
-                {companyLogo && companyLogoLink && (
+                {companyLogoLink && (
                   <a
                     href={companyLogoLink}
                     className="btn px-2 py-1 mb-4"

@@ -133,16 +133,21 @@ router.post('/login', async (req, res) => {
     res.status(500).send({ message: 'Internal Server Error.' });
   }
 });
-router.post('/uploadlogo', uploadImg.single('logo'), async (req, res) => {
-  try {
-    const result = await cloudinary.uploader.upload(req.file.path);
-    res.status(200).send({ secure_url: result.secure_url });
-  } catch (error) {
-    console.log(error);
-    res.status(500).send({ message: 'Internal Server Error.' });
+router.post(
+  '/uploadlogo',
+  authEmployer,
+  uploadImg.single('logo'),
+  async (req, res) => {
+    try {
+      const result = await cloudinary.uploader.upload(req.file.path);
+      res.status(200).send({ secure_url: result.secure_url });
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({ message: 'Internal Server Error.' });
+    }
   }
-});
-router.get('/users-list', async (req, res) => {
+);
+router.get('/users-list', authEmployer, async (req, res) => {
   try {
     const users = await Contractor.find();
     if (users) {
