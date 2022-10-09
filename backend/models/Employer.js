@@ -30,8 +30,8 @@ const employerSchema = new mongoose.Schema({
     type: String,
     trim: true
   },
-  companyLogo: {
-    type: Buffer
+  companyLogoLink: {
+    type: String
   },
   postedJobs: {
     type: ObjectId,

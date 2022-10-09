@@ -5,7 +5,7 @@ const Token = require('../models/TokenEmployer');
 const crypto = require('crypto');
 const sendEmail = require('../utils/sendEmail');
 
-exports.authContractor = async function (req, res, next) {
+exports.authEmployer = async function (req, res, next) {
   const token = req.header('x-auth-token');
   if (!token) {
     return res.status(401).json({ error: 'No token, Authorization Denied' });
