@@ -26,7 +26,7 @@ const employerSchema = new mongoose.Schema({
     type: String,
     trim: true
   },
-  companyWebsite: {
+  companyUrl: {
     type: String,
     trim: true
   },

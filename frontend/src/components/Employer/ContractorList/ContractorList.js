@@ -3,14 +3,16 @@ import { useEffect } from 'react';
 import { Card, Col, Container, Row } from 'react-bootstrap';
 import { getUsersList } from '../../../functions/employer';
 import { useMediaQuery } from 'react-responsive';
+import { useSelector } from 'react-redux';
 import './ContractorList.css';
 const ContractorList = () => {
+  const { user } = useSelector((state) => ({ ...state }));
   const large = useMediaQuery({
     query: '(max-width: 992px)'
   });
   const [data, setData] = useState([]);
   useEffect(async () => {
-    const result = await getUsersList();
+    const result = await getUsersList(user.token);
     setData(result);
   }, []);
   return (

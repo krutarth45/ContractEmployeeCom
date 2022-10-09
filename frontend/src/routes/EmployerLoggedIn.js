@@ -7,7 +7,7 @@ function EmployerLoggedIn() {
   const { user } = useSelector((state) => ({ ...state }));
   return user && user?.userType === 'employer' ? (
     <Outlet />
-  ) : user.skillInfo.length !== 0 ? (
+  ) : user.recruiterName ? (
     <JobFeed />
   ) : (
     <UserDetails />
