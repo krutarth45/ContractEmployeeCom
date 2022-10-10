@@ -16,6 +16,7 @@ import CompanyDetails from './pages/Employer/CompanyDetails';
 import UserList from './pages/Employer/UserList';
 import ContractorLoggedIn from './routes/ContractorLoggedIn';
 import EmployerLoggedIn from './routes/EmployerLoggedIn';
+import PostJob from './pages/Employer/PostJob';
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
       <Route element={<EmployerLoggedIn />}>
         <Route path="/employer/employer-details" element={<CompanyDetails />} />
         <Route path="/employer/users-list" element={<UserList />} />
+        <Route path="/employer/post-job" element={<PostJob />} />
       </Route>
       <Route path="/" element={<Home />} exact />
       <Route path="/contractor/:id/verify/:token" element={<EmailVerify />} />
