@@ -1,17 +1,20 @@
-import { Outlet } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import CompanyDetails from '../pages/Employer/CompanyDetails';
-import UserList from '../pages/Employer/UserList';
 
 function ContractorLoggedIn() {
   const { user } = useSelector((state) => ({ ...state }));
-  return user && user?.userType === 'contractor' ? (
-    <Outlet />
-  ) : user.recruiterName ? (
-    <UserList />
-  ) : (
-    <CompanyDetails />
-  );
+  if (user) {
+    if (user.userType === 'contractor') {
+      return <Outlet />;
+    } else {
+      if (user.recruiterName) {
+        return <Navigate to="/employer/users-list" />;
+      } else {
+        return <Navigate to="/employer/employer-details" />;
+      }
+    }
+  }
+  return <Navigate to="/" />;
 }
 
 export default ContractorLoggedIn;

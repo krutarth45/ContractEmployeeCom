@@ -14,7 +14,6 @@ import JobFeed from './pages/Contractor/JobFeed';
 import EmailVerifyTemp from './components/HomePages/EmailVerifyTemp';
 import CompanyDetails from './pages/Employer/CompanyDetails';
 import UserList from './pages/Employer/UserList';
-import NotLoggedInRoutes from './routes/NotLoggedInRoutes';
 import ContractorLoggedIn from './routes/ContractorLoggedIn';
 import EmployerLoggedIn from './routes/EmployerLoggedIn';
 
@@ -29,9 +28,7 @@ const App = () => {
         <Route path="/employer/employer-details" element={<CompanyDetails />} />
         <Route path="/employer/users-list" element={<UserList />} />
       </Route>
-      <Route element={<NotLoggedInRoutes />}>
-        <Route path="/" element={<Home />} exact />
-      </Route>
+      <Route path="/" element={<Home />} exact />
       <Route path="/contractor/:id/verify/:token" element={<EmailVerify />} />
       <Route path="/employer/:id/verify/:token" element={<EmailVerifyTemp />} />
       <Route path="/complaint" element={<Complaints />} />
