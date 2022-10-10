@@ -16,6 +16,43 @@ export const totalExp = [
   '15',
   '15+'
 ];
+export const jobIndustries = [
+  'Entertainment',
+  'Finance',
+  'Medical',
+  'Software',
+  'Education',
+  'Textile',
+  'Media and News',
+  'Food Processing',
+  'Hospitality',
+  'Construction',
+  'Law',
+  'Advertising',
+  'Other'
+];
+export const jobCategories = [
+  'App developer',
+  'AR/VR programmer',
+  'Audio-visual technician',
+  'Big data engineer',
+  'CAD technician',
+  'Computer service and repair technician',
+  'Database administrator',
+  'DevSecOps developer',
+  'Ethical hacker',
+  'Forensic computer analyst',
+  'Game designer',
+  'Games developer',
+  'Infrastructure engineer',
+  'IT project analyst',
+  'IT support technician',
+  'Machine learning engineer',
+  'Software engineer',
+  'Solution architect',
+  'Virtual reality designer',
+  'Web developer'
+];
 export const currency = [
   'AFA',
   'ALL',
@@ -681,6 +718,14 @@ export const cityNames = [
   'York',
   'Youngstown'
 ];
+export const contractDuration = [
+  'less than 3 months',
+  '3-6 months',
+  '6-12 months',
+  '1-2 years',
+  '2-4 years',
+  '4+ years'
+];
 
 export default {
   totalExp,
@@ -688,5 +733,8 @@ export default {
   skills,
   currency,
   notice,
-  cityNames
+  cityNames,
+  jobCategories,
+  jobIndustries,
+  contractDuration
 };

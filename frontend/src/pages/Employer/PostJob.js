@@ -6,6 +6,7 @@ const UserList = () => {
     <div>
       <EmployerHeader />
       <PostAJob />
+      <div style={{ height: '50px' }}></div>
     </div>
   );
 };

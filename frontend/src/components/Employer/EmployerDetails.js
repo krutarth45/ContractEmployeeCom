@@ -182,7 +182,7 @@ const EmployerDetails = () => {
               </Col>
               <Col sm={12} md={6}>
                 <Form.Group controlId="formFile" className="mb-3">
-                  <Form.Label>Resume</Form.Label>
+                  <Form.Label>Company Logo</Form.Label>
                   <Form.Control
                     required={companyLogoLink ? false : true}
                     name="logo"
