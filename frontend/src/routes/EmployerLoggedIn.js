@@ -1,17 +1,20 @@
-import { Outlet } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import JobFeed from '../pages/Contractor/JobFeed';
-import UserDetails from '../pages/Contractor/UserDetails';
 
 function EmployerLoggedIn() {
   const { user } = useSelector((state) => ({ ...state }));
-  return user && user?.userType === 'employer' ? (
-    <Outlet />
-  ) : user.recruiterName ? (
-    <JobFeed />
-  ) : (
-    <UserDetails />
-  );
+  if (user) {
+    if (user.userType === 'employer') {
+      return <Outlet />;
+    } else {
+      if (user.skillInfo.length !== 0) {
+        return <Navigate to="/contractor/job-feed" />;
+      } else {
+        return <Navigate to="/contractor/user-details" />;
+      }
+    }
+  }
+  return <Navigate to="/" />;
 }
 
 export default EmployerLoggedIn;
