@@ -11,6 +11,7 @@ const { uploadImg, uploadFile } = require('../utils/multer');
 const crypto = require('crypto');
 const Contractor = require('../models/Contractor');
 const { authEmployer } = require('../middlewares/authEmployer');
+const Job = require('../models/Job');
 
 router.post('/register', async (req, res) => {
   const { firstName, lastName, email, contact, password } = req.body;
@@ -214,6 +215,39 @@ router.post('/updateemployerdetails', authEmployer, async (req, res) => {
       }
     );
     res.status(200).send({ message: 'Successfully updated user data' });
+  } catch (error) {
+    res.status(500).send({ message: 'Internal Server Error.' });
+  }
+});
+router.post('/post-a-job', authEmployer, async (req, res) => {
+  try {
+    const {
+      jobRole,
+      jobSkills,
+      salary,
+      salaryCurrency,
+      jobCategory,
+      jobLocation,
+      jobIndustry,
+      jobContractDuration,
+      jobDescriptionLink,
+      companyDetailsLink
+    } = req.body;
+    let job = new Job({
+      jobRole,
+      jobSkills,
+      salary,
+      salaryCurrency,
+      jobCategory,
+      jobLocation,
+      jobIndustry,
+      jobContractDuration,
+      jobDescriptionLink,
+      companyDetailsLink,
+      postedBy: req.user._id
+    });
+    await job.save();
+    res.status(200).send({ message: 'Job posted Successfully.' });
   } catch (error) {
     res.status(500).send({ message: 'Internal Server Error.' });
   }

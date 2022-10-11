@@ -6,6 +6,9 @@ const JobSchema = new mongoose.Schema({
     type: String,
     trim: true
   },
+  jobSkills: {
+    type: [String]
+  },
   salary: {
     type: String,
     trim: true

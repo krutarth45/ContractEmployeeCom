@@ -13,9 +13,12 @@ import {
 import { useRef } from 'react';
 import { uploadCompanyDetails, uploadJobDesc } from '../../functions/employer';
 import { useSelector } from 'react-redux';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const PostAJob = () => {
   const { user } = useSelector((state) => ({ ...state }));
+  const navigate = useNavigate();
   const [jobRole, setJobRole] = useState('');
   const [jobSkills, setJobSkills] = useState([]);
   const [salary, setSalary] = useState('');
@@ -33,6 +36,42 @@ const PostAJob = () => {
   const [error2, setError2] = useState('');
   const [error3, setError3] = useState('');
   const ref = useRef();
+  const handleJobDetails = async (
+    jobRole,
+    jobSkills,
+    salary,
+    salaryCurrency,
+    jobCategory,
+    jobLocation,
+    jobIndustry,
+    jobContractDuration,
+    jobDescriptionLink,
+    companyDetailsLink
+  ) => {
+    try {
+      const { data } = await axios.post(
+        `http://localhost:8000/employer/post-a-job`,
+        {
+          jobRole,
+          jobSkills,
+          salary,
+          salaryCurrency,
+          jobCategory,
+          jobLocation,
+          jobIndustry,
+          jobContractDuration,
+          jobDescriptionLink,
+          companyDetailsLink
+        },
+        {
+          headers: { 'x-auth-token': user.token }
+        }
+      );
+      navigate('/employer/users-list');
+    } catch (error) {
+      setError(error.response.data.message);
+    }
+  };
   return (
     <div>
       <Container>
@@ -63,6 +102,18 @@ const PostAJob = () => {
               ) {
                 return setError3('Please select Value from the Dropdown Menu');
               }
+              handleJobDetails(
+                jobRole,
+                jobSkills,
+                salary,
+                salaryCurrency,
+                jobCategory,
+                jobLocation,
+                jobIndustry,
+                jobContractDuration,
+                jobDescriptionLink,
+                companyDetailsLink
+              );
             }}
           >
             <Row className="mt-2">
