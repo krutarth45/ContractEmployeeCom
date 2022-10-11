@@ -416,16 +416,18 @@ const ContractorDetails = () => {
                 <Form.Group controlId="formFile" className="mb-3">
                   <Form.Label>Resume</Form.Label>
                   <Form.Control
-                    required
+                    required={resumeLink ? false : true}
                     name="resume"
                     onChange={async (e) => {
                       setError2('');
                       setResume(e.target.files[0]);
                       let formData = new FormData();
                       formData.append('resume', e.target.files[0]);
-                      let secure_url = await uploadResume(formData);
+                      let secure_url = await uploadResume(formData, user.token);
                       if (secure_url === undefined) {
-                        return setError2('Only PDF format is supported');
+                        return setError2(
+                          'Only PDF, TXT or DOCX format is supported'
+                        );
                       }
                       setResumeLink(secure_url);
                     }}

@@ -12,10 +12,16 @@ import {
   skills
 } from '../../../data';
 import { useRef } from 'react';
-import { uploadLogo } from '../../../functions/employer';
+import {
+  uploadCompanyDetails,
+  uploadJobDesc,
+  uploadLogo
+} from '../../../functions/employer';
 import { uploadResume } from '../../../functions/contractor';
+import { useSelector } from 'react-redux';
 
 const PostAJob = () => {
+  const { user } = useSelector((state) => ({ ...state }));
   const [jobRole, setJobRole] = useState('');
   const [jobSkills, setJobSkills] = useState([]);
   const [salary, setSalary] = useState('');
@@ -192,16 +198,21 @@ const PostAJob = () => {
                   <Form.Label>Job Description</Form.Label>
                   <Form.Control
                     required={jobDescriptionLink ? false : true}
-                    name="jobDescription"
+                    name="jd"
                     onChange={async (e) => {
                       setError2('');
                       setJobDescription(e.target.files[0]);
                       let formData = new FormData();
                       formData.append('jd', e.target.files[0]);
                       // Add user token (Authd route)
-                      let secure_url = await uploadLogo(formData);
+                      let secure_url = await uploadJobDesc(
+                        formData,
+                        user.token
+                      );
                       if (secure_url === undefined) {
-                        return setError2('Only txt files are supported');
+                        return setError2(
+                          'Only PDF, TXT or DOCX files are supported'
+                        );
                       }
                       setJobDescriptionLink(secure_url);
                     }}
@@ -231,23 +242,28 @@ const PostAJob = () => {
                 <Form.Group controlId="formFile2" className="mb-3">
                   <Form.Label>Company Details</Form.Label>
                   <Form.Control
-                    required
+                    required={companyDetailsLink ? false : true}
                     name="companyDetails"
                     onChange={async (e) => {
                       setError1('');
                       setCompanyDetails(e.target.files[0]);
                       let formData = new FormData();
                       formData.append('companyDetails', e.target.files[0]);
-                      let secure_url = await uploadResume(formData);
+                      let secure_url = await uploadCompanyDetails(
+                        formData,
+                        user.token
+                      );
                       if (secure_url === undefined) {
-                        return setError1('Only PDF format is supported');
+                        return setError1(
+                          'Only PDF, TXT or DOCX format is supported'
+                        );
                       }
                       setCompanyDetailsLink(secure_url);
                     }}
                     type="file"
                   />
                 </Form.Group>
-                {error1 && <p className="text-danger">{error2}</p>}
+                {error1 && <p className="text-danger">{error1}</p>}
                 {companyDetailsLink && (
                   <a
                     href={companyDetailsLink}

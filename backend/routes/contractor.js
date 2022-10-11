@@ -136,15 +136,20 @@ router.post('/login', async (req, res) => {
   }
 });
 // pdf upload
-router.post('/resumeupload', uploadFile.single('resume'), async (req, res) => {
-  try {
-    const result = await cloudinary.uploader.upload(req.file.path);
-    res.status(200).send({ secure_url: result.secure_url });
-  } catch (error) {
-    console.log(error);
-    res.status(500).send({ message: 'Internal Server Error.' });
+router.post(
+  '/resumeupload',
+  authContractor,
+  uploadFile.single('resume'),
+  async (req, res) => {
+    try {
+      const result = await cloudinary.uploader.upload(req.file.path);
+      res.status(200).send({ secure_url: result.secure_url });
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({ message: 'Internal Server Error.' });
+    }
   }
-});
+);
 // update contractor details
 router.post('/updatecontractordetails', authContractor, async (req, res) => {
   try {

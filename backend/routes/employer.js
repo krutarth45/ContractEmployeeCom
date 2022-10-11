@@ -7,7 +7,7 @@ const Employer = require('../models/Employer');
 const Token = require('../models/TokenEmployer');
 const sendEmail = require('../utils/sendEmail');
 const cloudinary = require('../utils/cloudinary');
-const { uploadImg } = require('../utils/multer');
+const { uploadImg, uploadFile } = require('../utils/multer');
 const crypto = require('crypto');
 const Contractor = require('../models/Contractor');
 const { authEmployer } = require('../middlewares/authEmployer');
@@ -137,6 +137,34 @@ router.post(
   '/uploadlogo',
   authEmployer,
   uploadImg.single('logo'),
+  async (req, res) => {
+    try {
+      const result = await cloudinary.uploader.upload(req.file.path);
+      res.status(200).send({ secure_url: result.secure_url });
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({ message: 'Internal Server Error.' });
+    }
+  }
+);
+router.post(
+  '/uploadcompanydetails',
+  authEmployer,
+  uploadFile.single('companyDetails'),
+  async (req, res) => {
+    try {
+      const result = await cloudinary.uploader.upload(req.file.path);
+      res.status(200).send({ secure_url: result.secure_url });
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({ message: 'Internal Server Error.' });
+    }
+  }
+);
+router.post(
+  '/uploadjobdesc',
+  authEmployer,
+  uploadFile.single('jd'),
   async (req, res) => {
     try {
       const result = await cloudinary.uploader.upload(req.file.path);

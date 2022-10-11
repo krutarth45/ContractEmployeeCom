@@ -16,6 +16,40 @@ export const uploadLogo = async (formData, token) => {
     return error.response.data.message;
   }
 };
+export const uploadJobDesc = async (formData, token) => {
+  try {
+    const { data } = await axios.post(
+      'http://localhost:8000/employer/uploadjobdesc',
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/formdata',
+          'x-auth-token': token
+        }
+      }
+    );
+    return data.secure_url;
+  } catch (error) {
+    return error.response.data.message;
+  }
+};
+export const uploadCompanyDetails = async (formData, token) => {
+  try {
+    const { data } = await axios.post(
+      'http://localhost:8000/employer/uploadcompanydetails',
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/formdata',
+          'x-auth-token': token
+        }
+      }
+    );
+    return data.secure_url;
+  } catch (error) {
+    return error.response.data.message;
+  }
+};
 export const getUsersList = async (token) => {
   try {
     const { data } = await axios.get(
