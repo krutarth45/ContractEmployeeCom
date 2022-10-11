@@ -41,7 +41,7 @@ const EmployerHeader = () => {
                 Post-Job
               </Button>
             </Link>
-            <Link to="/employer/posted-job">
+            <Link to="/employer/posted-jobs">
               <Button className="contractor-header-button" type="button">
                 Jobs
               </Button>

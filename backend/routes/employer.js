@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const bcrypt = require('bcryptjs');
@@ -12,6 +13,7 @@ const crypto = require('crypto');
 const Contractor = require('../models/Contractor');
 const { authEmployer } = require('../middlewares/authEmployer');
 const Job = require('../models/Job');
+const { Mongoose } = require('mongoose');
 
 router.post('/register', async (req, res) => {
   const { firstName, lastName, email, contact, password } = req.body;
@@ -248,6 +250,19 @@ router.post('/post-a-job', authEmployer, async (req, res) => {
     });
     await job.save();
     res.status(200).send({ message: 'Job posted Successfully.' });
+  } catch (error) {
+    res.status(500).send({ message: 'Internal Server Error.' });
+  }
+});
+router.post('/get-posted-jobs', authEmployer, async (req, res) => {
+  try {
+    const jobs = await Job.find({
+      postedBy: mongoose.Types.ObjectId(req.user._id)
+    });
+    if (jobs) {
+      return res.status(200).send(jobs);
+    }
+    res.status(400).send({ message: 'No Jobs Posted.' });
   } catch (error) {
     res.status(500).send({ message: 'Internal Server Error.' });
   }
