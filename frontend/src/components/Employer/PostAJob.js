@@ -1,5 +1,4 @@
-import './PostAJob.css';
-import '../../Contractor/ContractorDetails/ContractorDetails.css';
+import '../Contractor/ContractorDetails/ContractorDetails.css';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { useState } from 'react';
 import { Typeahead } from 'react-bootstrap-typeahead';
@@ -10,14 +9,9 @@ import {
   jobCategories,
   jobIndustries,
   skills
-} from '../../../data';
+} from '../../data';
 import { useRef } from 'react';
-import {
-  uploadCompanyDetails,
-  uploadJobDesc,
-  uploadLogo
-} from '../../../functions/employer';
-import { uploadResume } from '../../../functions/contractor';
+import { uploadCompanyDetails, uploadJobDesc } from '../../functions/employer';
 import { useSelector } from 'react-redux';
 
 const PostAJob = () => {

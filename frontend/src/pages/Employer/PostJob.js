@@ -1,5 +1,5 @@
 import EmployerHeader from '../../components/Employer/EmployerHeader';
-import PostAJob from '../../components/Employer/PostAJob/PostAJob';
+import PostAJob from '../../components/Employer/PostAJob';
 
 const UserList = () => {
   return (
