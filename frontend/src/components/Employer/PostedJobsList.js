@@ -15,7 +15,7 @@ const PostedJobsList = () => {
   return (
     <div>
       <Container className="mt-5">
-        {data && data.message === 'No Jobs Posted.' ? (
+        {data && data === 'No Jobs Posted.' ? (
           <div className="text-center">NO JOBS POSTED.</div>
         ) : (
           <>

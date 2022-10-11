@@ -249,20 +249,40 @@ router.post('/post-a-job', authEmployer, async (req, res) => {
       postedBy: req.user._id
     });
     await job.save();
+    await Employer.updateOne(
+      { _id: req.user._id },
+      { $push: { postedJobs: mongoose.Types.ObjectId(job._id) } }
+    );
     res.status(200).send({ message: 'Job posted Successfully.' });
   } catch (error) {
     res.status(500).send({ message: 'Internal Server Error.' });
   }
 });
-router.post('/get-posted-jobs', authEmployer, async (req, res) => {
+router.get('/get-posted-jobs', authEmployer, async (req, res) => {
   try {
     const jobs = await Job.find({
       postedBy: mongoose.Types.ObjectId(req.user._id)
     });
-    if (jobs) {
+    if (jobs.length !== 0) {
       return res.status(200).send(jobs);
     }
-    res.status(400).send({ message: 'No Jobs Posted.' });
+    res.status(404).send({ message: 'No Jobs Posted.' });
+  } catch (error) {
+    res.status(500).send({ message: 'Internal Server Error.' });
+  }
+});
+router.get('/:jobId/applicants', authEmployer, async (req, res) => {
+  try {
+    const results = await Job.findById(req.params.id)
+      .select('applicantIds')
+      .populate(
+        'applicantIds.contractor',
+        'firstName lastName currentCompany jobType totalExperience relevantExperience expMonSal expMonCurr noticePeriod currentCity resumeLink'
+      );
+    if (results) {
+      return res.status(200).send(results);
+    }
+    res.status(400).send({ message: 'No Applicants for this Job Post' });
   } catch (error) {
     res.status(500).send({ message: 'Internal Server Error.' });
   }

@@ -33,10 +33,12 @@ const employerSchema = new mongoose.Schema({
   companyLogoLink: {
     type: String
   },
-  postedJobs: {
-    type: ObjectId,
-    ref: 'Job'
-  },
+  postedJobs: [
+    {
+      type: ObjectId,
+      ref: 'Job'
+    }
+  ],
   email: {
     type: String,
     trim: true,
