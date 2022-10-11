@@ -1,7 +1,7 @@
 import EmployerHeader from '../../components/Employer/EmployerHeader';
 import PostAJob from '../../components/Employer/PostAJob';
 
-const UserList = () => {
+const PostJob = () => {
   return (
     <div>
       <EmployerHeader />
@@ -11,4 +11,4 @@ const UserList = () => {
   );
 };
 
-export default UserList;
+export default PostJob;

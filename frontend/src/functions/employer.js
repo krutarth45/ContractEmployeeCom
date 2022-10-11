@@ -65,3 +65,19 @@ export const getUsersList = async (token) => {
     return error.response.data.message;
   }
 };
+export const getPostedJobs = async (token) => {
+  try {
+    const { data } = await axios.post(
+      'http://localhost:8000/employer/get-posted-jobs',
+      {},
+      {
+        headers: {
+          'x-auth-token': token
+        }
+      }
+    );
+    return data;
+  } catch (error) {
+    return error.response.data.message;
+  }
+};
