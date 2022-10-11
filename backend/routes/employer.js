@@ -153,7 +153,9 @@ router.post(
   uploadFile.single('companyDetails'),
   async (req, res) => {
     try {
-      const result = await cloudinary.uploader.upload(req.file.path);
+      const result = await cloudinary.uploader.upload(req.file.path, {
+        resource_type: 'raw'
+      });
       res.status(200).send({ secure_url: result.secure_url });
     } catch (error) {
       console.log(error);
@@ -167,7 +169,9 @@ router.post(
   uploadFile.single('jd'),
   async (req, res) => {
     try {
-      const result = await cloudinary.uploader.upload(req.file.path);
+      const result = await cloudinary.uploader.upload(req.file.path, {
+        resource_type: 'raw'
+      });
       res.status(200).send({ secure_url: result.secure_url });
     } catch (error) {
       console.log(error);
