@@ -40,6 +40,7 @@ const Header = () => {
         const { data } = await axios.post(url, values);
         setError('');
         dispatch({ type: 'LOGIN', payload: data.user });
+        Cookies.set('user', JSON.stringify(data.user));
         if (data.message === 'detailsUp') {
           navigate('/employer/users-list');
         } else if (data.message === 'detailsDown') {
