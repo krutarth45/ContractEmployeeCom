@@ -47,7 +47,9 @@ const ContractorList = () => {
                     </Card.Text>
                     <Card.Text>Notice Period: {user.noticePeriod}</Card.Text>
                     <Card.Text>Current City: {user.currentCity}</Card.Text>
-                    <Card.Link href={user.resumeLink}>Resume Link</Card.Link>
+                    <Card.Link href={user.resumeLink} target="_blank">
+                      Resume Link
+                    </Card.Link>
                   </Card.Body>
                 </Card>
               </Col>
