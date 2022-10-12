@@ -200,13 +200,6 @@ router.get('/get-jobs', authContractor, async (req, res) => {
   try {
     let jobs = await Job.find();
     if (jobs.length !== 0) {
-      jobs.forEach((element) => {
-        if (element.applicantIds.includes(req.user._id)) {
-          element.appliedFlag = true;
-        } else {
-          element.appliedFlag = false;
-        }
-      });
       return res.status(200).send(jobs);
     }
     res.status(404).send({ message: 'No Jobs Posted.' });

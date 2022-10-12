@@ -276,11 +276,11 @@ router.get('/:jobId/applicants', authEmployer, async (req, res) => {
     const results = await Job.findById(req.params.jobId)
       .select('applicantIds')
       .populate(
-        'applicantIds.contractor',
+        'applicantIds.Contractor',
         'firstName lastName currentCompany jobType totalExperience relevantExperience expMonSal expMonCurr noticePeriod currentCity resumeLink'
       );
     if (results.applicantIds.length !== 0) {
-      return res.status(200).send(results);
+      return res.status(200).send(results.applicantIds);
     }
     res.status(400).send({ message: 'No Applicants for this Job Post' });
   } catch (error) {
