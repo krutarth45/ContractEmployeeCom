@@ -19,14 +19,16 @@ const ContractorList = () => {
     <div>
       <Container>
         <Row className="mt-3">
-          {data && data === 'Users not found' ? (
+          {data && data.length === 0 ? (
             <div className="text-center">No Users Found</div>
           ) : (
             <>
               {data.map((user, index) => (
                 <Col className="mb-3" key={index}>
                   <Card
-                    className={`${large ? 'userDiv mx-auto' : 'userDiv'}`}
+                    className={`${
+                      large ? 'userDiv mx-auto' : 'userDiv mx-auto'
+                    }`}
                     style={{ width: '18rem' }}
                   >
                     <Card.Body>

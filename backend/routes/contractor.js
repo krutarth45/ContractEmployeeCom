@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const bcrypt = require('bcryptjs');
@@ -75,7 +76,7 @@ router.get('/:id/verify/:token', async (req, res) => {
     if (!token) {
       return res.status(400).send({ message: 'Invalid Link' });
     }
-    await Contractor.updateOne({ _id: user._id, verified: true });
+    await Contractor.updateOne({ _id: user._id }, { verified: true });
     await token.remove();
     res.status(200).send('Email Verified.');
   } catch (error) {
@@ -133,7 +134,7 @@ router.post('/login', async (req, res) => {
     }
     res.status(200).send({ user, message: 'detailsUp' });
   } catch (error) {
-    res.status(500).send({ message: 'Internal Server Error.' });
+    res.status(500).send({ message: 'Internal Server Error' });
   }
 });
 // pdf upload
@@ -210,12 +211,21 @@ router.get('/get-jobs', authContractor, async (req, res) => {
 router.put('/:jobId/apply', authContractor, async (req, res) => {
   try {
     const job = await Job.findById(req.params.jobId);
-    if (job.applicantIds.includes(req.user._id)) {
+    const user = await Contractor.findById(req.user._id);
+    if (
+      job.applicantIds.includes(req.user._id) &&
+      user.appliedTo.includes(job._id)
+    ) {
       return res.send({ message: 'Already Applied' });
     }
     await job.updateOne({
       $push: {
         applicantIds: req.user._id
+      }
+    });
+    await user.updateOne({
+      $push: {
+        appliedTo: mongoose.Types.ObjectId(job._id)
       }
     });
   } catch (error) {
@@ -225,10 +235,19 @@ router.put('/:jobId/apply', authContractor, async (req, res) => {
 router.put('/:jobId/revoke', authContractor, async (req, res) => {
   try {
     const job = await Job.findById(req.params.jobId);
-    if (job.applicantIds.includes(req.user._id)) {
+    const user = await Contractor.findById(req.user._id);
+    if (
+      job.applicantIds.includes(req.user._id) &&
+      user.appliedTo.includes(job._id)
+    ) {
       await job.updateOne({
         $pull: {
           applicantIds: req.user._id
+        }
+      });
+      await user.updateOne({
+        $pull: {
+          appliedTo: mongoose.Types.ObjectId(job._id)
         }
       });
       res.status(200).send({ message: 'Successfully Revoked Apply' });
