@@ -66,4 +66,4 @@ const employerSchema = new mongoose.Schema({
   }
 });
 
-module.exports = Employer = mongoose.model('employer', employerSchema);
+module.exports = Employer = mongoose.model('Employer', employerSchema);

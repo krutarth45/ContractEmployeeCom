@@ -36,12 +36,12 @@ const JobSchema = new mongoose.Schema({
   },
   postedBy: {
     type: ObjectId,
-    ref: 'employer'
+    ref: 'Employer'
   },
   applicantIds: [
     {
       type: ObjectId,
-      ref: 'contractor'
+      ref: 'Contractor'
     }
   ]
 });

@@ -94,11 +94,11 @@ const ContractorSchema = new mongoose.Schema({
   },
   appliedTo: {
     type: ObjectId,
-    ref: 'job'
+    ref: 'Job'
   },
   token: {
     type: String
   }
 });
 
-module.exports = Contractor = mongoose.model('contractor', ContractorSchema);
+module.exports = Contractor = mongoose.model('Contractor', ContractorSchema);

@@ -3,7 +3,9 @@ import { useState } from 'react';
 import { Button, Card, Col, Row } from 'react-bootstrap';
 import '../Employer/ContractorList/ContractorList.css';
 const SingleJob = ({ job, user }) => {
-  const [appliedFlag, setAppliedFlag] = useState(job.appliedFlag);
+  const [appliedFlag, setAppliedFlag] = useState(
+    job.applicantIds.includes(user._id)
+  );
   const handleApplyJob = async () => {
     try {
       await axios.put(
