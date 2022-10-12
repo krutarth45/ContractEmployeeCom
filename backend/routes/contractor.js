@@ -10,6 +10,7 @@ const { authContractor } = require('../middlewares/authContractor');
 const cloudinary = require('../utils/cloudinary');
 const { uploadFile } = require('../utils/multer');
 const crypto = require('crypto');
+const Job = require('../models/Job');
 
 // Contractor Registration
 router.post('/register', async (req, res) => {
@@ -191,6 +192,55 @@ router.post('/updatecontractordetails', authContractor, async (req, res) => {
       }
     );
     res.status(200).send({ message: 'Successfully updated user data' });
+  } catch (error) {
+    res.status(500).send({ message: 'Internal Server Error.' });
+  }
+});
+router.get('/get-jobs', authContractor, async (req, res) => {
+  try {
+    let jobs = await Job.find();
+    if (jobs.length !== 0) {
+      jobs.forEach((element) => {
+        if (element.applicantIds.includes(req.user._id)) {
+          element.appliedFlag = true;
+        } else {
+          element.appliedFlag = false;
+        }
+      });
+      return res.status(200).send(jobs);
+    }
+    res.status(404).send({ message: 'No Jobs Posted.' });
+  } catch (error) {
+    res.status(500).send({ message: 'Internal Server Error.' });
+  }
+});
+router.put('/:jobId/apply', authContractor, async (req, res) => {
+  try {
+    const job = await Job.findById(req.params.jobId);
+    if (job.applicantIds.includes(req.user._id)) {
+      return res.send({ message: 'Already Applied' });
+    }
+    await job.updateOne({
+      $push: {
+        applicantIds: req.user._id
+      }
+    });
+  } catch (error) {
+    res.status(500).send({ message: 'Internal Server Error.' });
+  }
+});
+router.put('/:jobId/revoke', authContractor, async (req, res) => {
+  try {
+    const job = await Job.findById(req.params.jobId);
+    if (job.applicantIds.includes(req.user._id)) {
+      await job.updateOne({
+        $pull: {
+          applicantIds: req.user._id
+        }
+      });
+      res.status(200).send({ message: 'Successfully Revoked Apply' });
+    }
+    return res.send({ message: 'Already Not Applied' });
   } catch (error) {
     res.status(500).send({ message: 'Internal Server Error.' });
   }

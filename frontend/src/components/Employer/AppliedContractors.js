@@ -8,13 +8,14 @@ import './ContractorList/ContractorList.css';
 
 const AppliedContractors = () => {
   const { user } = useSelector((state) => ({ ...state }));
-  let { jobId } = useParams();
+  let { id } = useParams();
   const large = useMediaQuery({
     query: '(max-width: 992px)'
   });
   const [data, setData] = useState([]);
   useEffect(async () => {
-    const result = await getAppliedUsersList(jobId, user.token);
+    const result = await getAppliedUsersList(id, user.token);
+    console.log(result);
     setData(result);
   }, []);
   return (

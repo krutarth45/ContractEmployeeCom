@@ -16,3 +16,18 @@ export const uploadResume = async (formData, token) => {
     return error.response.data.message;
   }
 };
+export const getJobs = async (token) => {
+  try {
+    const { data } = await axios.get(
+      'http://localhost:8000/contractor/get-jobs',
+      {
+        headers: {
+          'x-auth-token': token
+        }
+      }
+    );
+    return data;
+  } catch (error) {
+    return error.response.data.message;
+  }
+};
