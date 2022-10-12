@@ -15,8 +15,10 @@ const AppliedContractors = () => {
   const [data, setData] = useState([]);
   useEffect(async () => {
     const result = await getAppliedUsersList(id, user.token);
-    console.log(result);
-    setData(result);
+    if (result === 'No Applicants for this Job Post') {
+      return setData(result);
+    }
+    setData(result.applicantIds);
   }, []);
   return (
     <div>
@@ -37,7 +39,7 @@ const AppliedContractors = () => {
                         {user.firstName} {user.lastName}
                       </Card.Title>
                       <Card.Subtitle className="mb-2 text-muted">
-                        {user.currentCompany} - {user.jobType}
+                        {user.companyName} - {user.jobType}
                       </Card.Subtitle>
                       <Card.Text>
                         Total Experience: {user.totalExperience}
