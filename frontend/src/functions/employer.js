@@ -80,10 +80,10 @@ export const getPostedJobs = async (token) => {
     return error.response.data.message;
   }
 };
-export const getAppliedUsersList = async (jobId, token) => {
+export const getAppliedUsersList = async (id, token) => {
   try {
     const { data } = await axios.get(
-      `http://localhost:8000/employer/${jobId}/applicants`,
+      `http://localhost:8000/employer/${id}/applicants`,
       {
         headers: {
           'x-auth-token': token

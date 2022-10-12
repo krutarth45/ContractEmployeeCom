@@ -32,10 +32,7 @@ const App = () => {
         <Route path="/employer/users-list" element={<UserList />} />
         <Route path="/employer/post-job" element={<PostJob />} />
         <Route path="/employer/posted-jobs" element={<PostedJobs />} />
-        <Route
-          path="/employer/:jobId/applicants"
-          element={<ListApplicants />}
-        />
+        <Route path="/employer/:id/applicants" element={<ListApplicants />} />
       </Route>
       <Route path="/" element={<Home />} exact />
       <Route path="/contractor/:id/verify/:token" element={<EmailVerify />} />
