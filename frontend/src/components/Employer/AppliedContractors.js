@@ -31,7 +31,9 @@ const AppliedContractors = () => {
               {data.map((user, index) => (
                 <Col className="mb-3" key={index}>
                   <Card
-                    className={`${large ? 'userDiv mx-auto' : 'userDiv'}`}
+                    className={`${
+                      large ? 'userDiv mx-auto' : 'userDiv mx-auto'
+                    }`}
                     style={{ width: '18rem' }}
                   >
                     <Card.Body>

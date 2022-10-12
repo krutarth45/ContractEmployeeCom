@@ -16,15 +16,9 @@ const ContractorSchema = new mongoose.Schema({
     unique: [true, 'User Already Exists'],
     lowercase: true
   },
-  username: {
-    type: String,
-    trim: true,
-    unique: [true, 'Username Already Exists']
-  },
   contact: {
     type: Number,
-    trim: true,
-    unique: [true, 'Number Already Exists.']
+    trim: true
   },
   password: {
     type: String

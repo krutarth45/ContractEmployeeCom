@@ -13,7 +13,6 @@ const crypto = require('crypto');
 const Contractor = require('../models/Contractor');
 const { authEmployer } = require('../middlewares/authEmployer');
 const Job = require('../models/Job');
-const { Mongoose } = require('mongoose');
 
 router.post('/register', async (req, res) => {
   const { firstName, lastName, email, contact, password } = req.body;
@@ -76,7 +75,7 @@ router.get('/:id/verify/:token', async (req, res) => {
     if (!token) {
       return res.status(400).send({ message: 'Invalid Link' });
     }
-    await Employer.updateOne({ _id: user._id, verified: true });
+    await Employer.updateOne({ _id: user._id }, { verified: true });
     await token.remove();
     res.status(200).send('Email Verified.');
   } catch (error) {
