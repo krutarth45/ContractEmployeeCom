@@ -86,10 +86,12 @@ const ContractorSchema = new mongoose.Schema({
     type: String,
     default: 'contractor'
   },
-  appliedTo: {
-    type: ObjectId,
-    ref: 'Job'
-  },
+  appliedTo: [
+    {
+      type: ObjectId,
+      ref: 'Job'
+    }
+  ],
   token: {
     type: String
   }
