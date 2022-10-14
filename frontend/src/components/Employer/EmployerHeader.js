@@ -1,10 +1,10 @@
-import './ContractorHeader.css';
+import '../Contractor/ContractorHeader/ContractorHeader.css';
 import { Navbar, Nav, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
 
-const ContractorHeader = () => {
+const EmployerHeader = () => {
   const dispatch = useDispatch();
   return (
     <Navbar
@@ -31,12 +31,22 @@ const ContractorHeader = () => {
       >
         <Nav className="ms-auto">
           <div className="d-flex" style={{ marginRight: '30px' }}>
-            <Link to="/contractor/job-feed">
+            <Link to="/employer/users-list">
               <Button className="contractor-header-button" type="button">
                 Home
               </Button>
             </Link>
-            <Link to="/contractor/user-details">
+            <Link to="/employer/post-job">
+              <Button className="contractor-header-button" type="button">
+                Post-Job
+              </Button>
+            </Link>
+            <Link to="/employer/posted-jobs">
+              <Button className="contractor-header-button" type="button">
+                Jobs
+              </Button>
+            </Link>
+            <Link to="/employer/employer-details">
               <Button className="contractor-header-button" type="button">
                 Profile
               </Button>
@@ -62,4 +72,4 @@ const ContractorHeader = () => {
   );
 };
 
-export default ContractorHeader;
+export default EmployerHeader;

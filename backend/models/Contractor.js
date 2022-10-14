@@ -16,15 +16,9 @@ const ContractorSchema = new mongoose.Schema({
     unique: [true, 'User Already Exists'],
     lowercase: true
   },
-  username: {
-    type: String,
-    trim: true,
-    unique: [true, 'Username Already Exists']
-  },
   contact: {
     type: Number,
-    trim: true,
-    unique: [true, 'Number Already Exists.']
+    trim: true
   },
   password: {
     type: String
@@ -33,66 +27,74 @@ const ContractorSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
-  totalExperience: {
-    type: String
+  totalExpYear: {
+    type: [String],
+    default: []
   },
-  relevantExperience: {
-    type: String
+  relExpYear: {
+    type: [String],
+    default: []
   },
-  skills: {
+  skillInfo: {
     type: [String],
     default: []
   },
   jobType: {
-    type: String,
-    enum: ['Contract', 'Permanent']
-  },
-  expSalVal: {
-    type: String
-  },
-  expSalCurrency: {
-    type: String
-  },
-  curSalVal: {
-    type: String
-  },
-  curSalCurrency: {
-    type: String
-  },
-  bYear: {
-    type: Number,
-    trim: true
-  },
-  bMonth: {
-    type: Number,
-    trim: true
-  },
-  bDay: {
-    type: Number,
-    trim: true
-  },
-  prefferedLocation: {
     type: [String],
     default: []
   },
-  currentCompany: {
+  expMonSal: {
+    type: [String],
+    default: []
+  },
+  expMonCurr: {
+    type: [String],
+    default: []
+  },
+  curMonSal: {
+    type: [String],
+    default: []
+  },
+  curMonCurr: {
+    type: [String],
+    default: []
+  },
+  bday: {
+    type: Date,
+    default: Date.now
+  },
+  preferredCities: {
+    type: [String],
+    default: []
+  },
+  companyName: {
     type: String,
     trim: true
   },
-  currentLocation: {
+  currentCity: {
+    type: [String],
+    default: []
+  },
+  noticePeriod: {
+    type: [String],
+    default: []
+  },
+  resumeLink: {
+    type: String
+  },
+  userType: {
     type: String,
-    trim: true
+    default: 'contractor'
   },
-  resume: {
-    type: Buffer
-  },
-  appliedTo: {
-    type: ObjectId,
-    ref: 'Job'
-  },
+  appliedTo: [
+    {
+      type: ObjectId,
+      ref: 'Job'
+    }
+  ],
   token: {
     type: String
   }
 });
 
-module.exports = Contractor = mongoose.model('contractor', ContractorSchema);
+module.exports = Contractor = mongoose.model('Contractor', ContractorSchema);

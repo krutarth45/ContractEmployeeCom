@@ -4,7 +4,10 @@ import * as yup from 'yup';
 import { Formik } from 'formik';
 import './HomeBody.css';
 import { useState } from 'react';
-const HomeBody = ({ mode, setMode }) => {
+import { useDispatch, useSelector } from 'react-redux';
+const HomeBody = () => {
+  const { mode } = useSelector((state) => ({ ...state }));
+  const dispatch = useDispatch();
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const phoneRegExp =
@@ -39,7 +42,9 @@ const HomeBody = ({ mode, setMode }) => {
   });
   const handleRegisterSubmit = async (values) => {
     try {
-      const url = 'http://localhost:8000/contractor/register';
+      const url = mode
+        ? 'http://localhost:8000/contractor/register'
+        : 'http://localhost:8000/employer/register';
       const { data } = await axios.post(url, values);
       setError('');
       setSuccess(data.message);
@@ -128,7 +133,7 @@ const HomeBody = ({ mode, setMode }) => {
                     if (mode) {
                       return;
                     }
-                    setMode((prev) => !prev);
+                    dispatch({ type: 'CONTRACTOR' });
                   }}
                 />
                 <label htmlFor="Contractor">Contractor</label>
@@ -144,7 +149,7 @@ const HomeBody = ({ mode, setMode }) => {
                     if (!mode) {
                       return;
                     }
-                    setMode((prev) => !prev);
+                    dispatch({ type: 'EMPLOYER' });
                   }}
                 />
                 <label htmlFor="Employer">Employer</label>

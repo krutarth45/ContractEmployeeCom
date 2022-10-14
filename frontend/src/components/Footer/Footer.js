@@ -2,7 +2,9 @@ import { Row, Col } from 'react-bootstrap';
 import { useMediaQuery } from 'react-responsive';
 import { Link } from 'react-router-dom';
 import './Footer.css';
+import { useDispatch } from 'react-redux';
 const Footer = ({ setMode }) => {
+  const dispatch = useDispatch();
   const medium = useMediaQuery({
     query: '(max-width: 768px)'
   });
@@ -33,10 +35,10 @@ const Footer = ({ setMode }) => {
         <Col md={3} className={`${medium ? 'mb-3' : ''}`}>
           <h4>LINKS</h4>
           <ul className="footer__links">
-            <li onClick={() => setMode(true)}>
+            <li onClick={() => dispatch({ type: 'CONTRACTOR' })}>
               <Link to="/">Jobseeker Sign Up</Link>
             </li>
-            <li onClick={() => setMode(false)}>
+            <li onClick={() => dispatch({ type: 'EMPLOYER' })}>
               <Link to="/">Employer Sign Up</Link>
             </li>
           </ul>

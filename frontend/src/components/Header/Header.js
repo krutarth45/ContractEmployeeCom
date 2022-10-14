@@ -1,4 +1,5 @@
 import { Navbar, Nav, Form, Button } from 'react-bootstrap';
+import Cookies from 'js-cookie';
 import React, { useState } from 'react';
 import * as yup from 'yup';
 import { Formik } from 'formik';
@@ -7,8 +8,11 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Header.css';
 import { useMediaQuery } from 'react-responsive';
+import { useDispatch, useSelector } from 'react-redux';
 
-const Header = ({ mode, setMode }) => {
+const Header = () => {
+  const { mode } = useSelector((state) => ({ ...state }));
+  const dispatch = useDispatch();
   const large = useMediaQuery({
     query: '(max-width: 992px)'
   });
@@ -20,13 +24,28 @@ const Header = ({ mode, setMode }) => {
   });
   const handleLoginSubmit = async (values) => {
     try {
-      const url = 'http://localhost:8000/contractor/login';
-      const { data } = await axios.post(url, values);
-      setError('');
-      if (data.message === 'detailsUp') {
-        navigate('/contractor/job-feed');
-      } else if (data.message === 'detailsDown') {
-        navigate('/contractor/user-details');
+      if (mode) {
+        const url = 'http://localhost:8000/contractor/login';
+        const { data } = await axios.post(url, values);
+        setError('');
+        dispatch({ type: 'LOGIN', payload: data.user });
+        Cookies.set('user', JSON.stringify(data.user));
+        if (data.message === 'detailsUp') {
+          navigate('/contractor/job-feed');
+        } else if (data.message === 'detailsDown') {
+          navigate('/contractor/user-details');
+        }
+      } else {
+        const url = 'http://localhost:8000/employer/login';
+        const { data } = await axios.post(url, values);
+        setError('');
+        dispatch({ type: 'LOGIN', payload: data.user });
+        Cookies.set('user', JSON.stringify(data.user));
+        if (data.message === 'detailsUp') {
+          navigate('/employer/users-list');
+        } else if (data.message === 'detailsDown') {
+          navigate('/employer/employer-details');
+        }
       }
     } catch (error) {
       if (
@@ -136,7 +155,7 @@ const Header = ({ mode, setMode }) => {
               className="headerRight__modeShift"
               style={{ cursor: 'pointer' }}
               onClick={() => {
-                setMode((prev) => !prev);
+                dispatch({ type: 'REVERSE', payload: !mode });
               }}
             >
               {mode ? 'Go To Employer Sign In' : 'Go To Contractor Sign In'}
