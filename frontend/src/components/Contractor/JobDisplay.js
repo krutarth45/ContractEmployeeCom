@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getJobs } from '../../functions/contractor';
 import SingleJob from './SingleJob';
 const JobDisplay = () => {
   const { user } = useSelector((state) => ({ ...state }));
+  const dispatch = useDispatch();
   const [data, setData] = useState([]);
   useEffect(async () => {
     const result = await getJobs(user.token);
     setData(result);
   }, []);
+  dispatch({ type: 'GETJOBS', payload: data });
   return (
     <div>
       <Container className="mt-5">
