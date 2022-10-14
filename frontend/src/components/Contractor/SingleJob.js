@@ -39,7 +39,7 @@ const SingleJob = ({ job, user }) => {
   return (
     <Row className="mb-4">
       <Col>
-        <Card className="userDiv px-3 py-2 mx-auto" style={{ width: '90%' }}>
+        <Card className="userDiv px-3 py-2 mx-auto" style={{ width: '100%' }}>
           <Card.Body>
             <Card.Title>{job.jobRole}</Card.Title>
             <Card.Subtitle className="mb-2 text-muted">
