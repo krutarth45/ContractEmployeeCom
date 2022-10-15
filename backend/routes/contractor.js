@@ -45,7 +45,7 @@ router.post('/register', async (req, res) => {
       contractorId: user._id,
       token: crypto.randomBytes(32).toString('hex')
     }).save();
-    const url = `${config.get('base_url')}contractor/${user._id}/verify/${
+    const url = `${config.get('base_url')}/contractor/${user._id}/verify/${
       token.token
     }`;
     await sendEmail(
