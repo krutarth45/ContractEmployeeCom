@@ -8,7 +8,7 @@ import SingleJob from './SingleJob';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import { useRef } from 'react';
 const JobDisplay = () => {
-  const { user } = useSelector((state) => ({ ...state }));
+  const { user, filters } = useSelector((state) => ({ ...state }));
   const [jobTitleFilter, setJobTitleFilter] = useState('');
   const [skillsFilter, setSkillsFilter] = useState([]);
   const [industryFilter, setIndustryFilter] = useState([]);
@@ -20,9 +20,13 @@ const JobDisplay = () => {
   const [data, setData] = useState([]);
   useEffect(async () => {
     const result = await getJobs(user.token);
+    if (result === 'No Jobs Posted.') {
+      return setData(result);
+    }
     setData(result);
+    dispatch({ type: 'GETJOBS', payload: result });
+    dispatch({ type: 'GETFILTERS', payload: result });
   }, []);
-  dispatch({ type: 'GETJOBS', payload: data });
   return (
     <div>
       <div className="d-md-flex">
@@ -41,7 +45,20 @@ const JobDisplay = () => {
               Filters
             </p>
             <div className="p-2">
-              <Form>
+              <Form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  dispatch({
+                    type: 'UPDATEFILTERS',
+                    payload: {
+                      jobTitle: jobTitleFilter,
+                      industry: industryFilter,
+                      contractDuration: contractDurationFilter,
+                      skills: skillsFilter
+                    }
+                  });
+                }}
+              >
                 <Row className="">
                   <Form.Group controlId="jobRoleFilter">
                     <Form.Label>Job Title: </Form.Label>
@@ -126,7 +143,7 @@ const JobDisplay = () => {
               <div className="text-center">NO JOBS POSTED.</div>
             ) : (
               <>
-                {data.map((job, index) => (
+                {filters.filteredJobs.map((job, index) => (
                   <SingleJob user={user} job={job} key={index} />
                 ))}
               </>
